@@ -1,0 +1,319 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* My Code */
+:root {
+  font-family: 'Work Sans', sans-serif;
+    background-color: black;
+    color: white;
+    --title-color: rgb(0, 99, 230);
+}
+main {
+
+  display: flex;
+}
+.container {
+  width:40%;
+  height: 80vh;
+  border: 2px solid white;
+  border-radius: 3em;
+  margin: 0 auto;
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+}
+.display {
+  display: flex;
+  justify-content: center;
+
+}
+.timer{
+  font-size: 9vw;
+  text-size-adjust: auto;
+  text-align: center;
+  color: var(--title-color);
+}
+.roundsDisplay {
+  font-size: 3vw;
+  position: absolute;
+  left: 20.8em;
+  margin-top: 0.2em;
+  color: var(--title-color)
+  
+}
+
+.options {
+  text-align: center;
+  display: grid;
+  justify-content: center;
+  gap: 0.8em;
+  
+}
+
+.options label {
+  display: inline-block;
+  width: 4em;
+  font-size: 1.4rem;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
+
+.options input[type=number]:not(.timeInput)  {
+  width: 6em;
+  height: 1.2em;
+  font-size: 1.5vw;
+  border-radius: 0.5em;
+  border: none;
+  outline: none ;
+  background-color: rgb(182, 182, 182);
+  text-align: center;
+  padding-left: 0.5em;
+  vertical-align: middle;
+
+}
+.inputBox {
+  display: flex;
+  gap: 0.2em
+}
+.inputBox span{
+font-size: 2em;
+line-height: 0.9;
+}
+
+.options .timeInput {
+  width: 2.7em;
+  height: 1.2em;
+  font-size: 1.5vw;
+  border-radius: 0.5em;
+  border: none;
+  outline: none ;
+  background-color: rgb(182, 182, 182);
+  text-align: center;
+  padding-left: 0.5em;
+  vertical-align: middle;
+}
+
+.options input:focus{
+  outline: none ;
+  background-color: rgb(240, 240, 240);
+  outline: 3px solid var(--title-color);;
+}
+.options div {
+  display: flex;
+  flex-direction: row;
+}
+.options input[type=color] {
+ margin-left: 0.3em;
+ background-color: black;
+ border-radius: 50%;
+ height: 2em;
+ width: 2em;
+ border: none;
+ outline: none;
+cursor: pointer;
+}
+
+.options input[type=color]::-webkit-color-swatch {
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 50%;
+}
+.buttons {
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+}
+.buttons button {
+  border-radius: 0.75em;
+  padding: 0.12em 0.6em;
+  cursor: pointer;
+  flex-flow:column wrap;  
+}
+.buttons .control button {
+  font-size: 2rem;
+  margin: 0.2em;
+
+}
+.buttons .save button{
+  padding: 0.08em 0.3em;
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: var(--title-color);
+  color: black;
+}
+.save {
+  margin-top: 1.5em;
+  display: flex;
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+.saveWorkoutBtn {
+  margin-top: 5em;
+  margin-right: 1.2em;
+}
+
+/* ///   SIDEBAR   /// */
+
+aside .savedWorkouts {
+  margin: 1.1em;
+  margin-top: 3em;
+  padding-left: 2em;
+  position: absolute;
+  width: 14vw;
+  display: flex;
+  
+}
+.workout {
+  padding: 1em;
+  padding-bottom: 0.5em;
+  border: 2px solid var(--title-color);
+  border-radius: 2em;
+
+}
+
+
+
+.workout .deleteBtn {
+  
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1rem;
+  float: right;
+  background-color: black;
+  border: 2px solid red;
+  border-radius: 50%;
+  color: red;
+  cursor: pointer;
+}
+
+
+/* ///// */
+.workout .title {
+  text-align: center;
+  font-size: 1.6rem;
+}
+.workout .data {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ justify-content: center;
+  align-items: center;
+  gap: 0 1em;
+  white-space: nowrap;
+
+}
+.workout .startWorkout {
+  display: flex;
+  justify-content: center;
+}
+.workout .startWorkout button {
+  margin-top: 0.5em;
+  padding: 0.08em 0.4em;
+  border-radius: 0.75em;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: var(--title-color);
+  color: black;
+}
+
+
+/* /// MEDIA QUERIES  /// */
+@media only screen and (max-width: 600px) {
+main {
+  display: grid;
+  grid-template-areas: "top"
+											 "bottom";
+}
+aside {
+  grid-area: bottom;
+}
+section .container {
+  grid-area: top;
+}
+
+}
+
+
+@media only screen and (max-width: 768px) {
+  .workout .data {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  aside .savedWorkouts {
+    width: 20vw;
+  }
+}
