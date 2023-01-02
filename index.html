@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="style.css" />
     <script src="main.js" defer></script>
+    <!-- <script src="lodash.js"></script> -->
     <title>Timer</title>
   </head>
   <body>
@@ -36,13 +37,30 @@
       <section class="container">
         <div class="display">
           <div class="timer">10:52</div>
-          <div class="roundsDisplay">1/5</div>
+          <div class="roundsDisplay">0/0</div>
         </div>
+        <progress id="progressBar" value="0" max="100"></progress>
+
         <form action="">
+          <div class="buttons">
+            <div class="control">
+              <button class="start">Start</button>
+              <button class="stop">Stop</button>
+              <button class="reset" type="reset">Reset</button>
+            </div>
+          </div>
           <div class="options">
             <div class="rounds">
               <label for="rounds">Rounds:</label>
-              <input type="number" name="rounds" id="rounds" min="0" max="100000" placeholder="0" />
+              <input type="number" name="rounds" id="rounds" min="0" max="100000" value="10" />
+            </div>
+            <div class="prepare">
+              <label for="prepare">Prepare:</label>
+              <p class="inputBox">
+                <input type="number" name="prepareMinutes" id="prepareMinutes" class="timeInput" min="0" value="00" />
+                <span>:</span>
+                <input type="number" name="prepareSeconds" id="prepareSeconds" class="timeInput" min="0" value="02" />
+              </p>
             </div>
             <div class="work">
               <label for="work">Work:</label>
@@ -50,33 +68,23 @@
                 <input type="number" name="workMinutes" id="workMinutes" min="0" placeholder="00" />
               </div> -->
               <p class="inputBox">
-                <input type="number" name="workMinutes" id="workMinutes" class="timeInput" min="0" placeholder="00" /> <span>:</span>
-                <input type="number" name="workSeconds" id="workSeconds" class="timeInput" min="0" placeholder="00" />
+                <input type="number" name="workMinutes" id="workMinutes" class="timeInput" min="0" value="00" /> <span>:</span>
+                <input type="number" name="workSeconds" id="workSeconds" class="timeInput" min="0" value="03" />
               </p>
               <input type="color" id="workColor" name="workColor" value="#00993B" />
             </div>
             <div class="rest">
               <label for="rest">Rest:</label>
               <p class="inputBox">
-                <input type="number" name="restMinutes" id="restMinutes" class="timeInput" min="0" placeholder="00" /> <span>:</span>
-                <input type="number" name="restSeconds" id="restSeconds" class="timeInput" min="0" placeholder="00" />
+                <input type="number" name="restMinutes" id="restMinutes" class="timeInput" min="0" value="00" /> <span>:</span>
+                <input type="number" name="restSeconds" id="restSeconds" class="timeInput" min="0" value="02" />
               </p>
               <input type="color" id="restColor" name="restColor" value="#DB0000" />
             </div>
-            <div class="prepare">
-              <label for="prepare">Prepare:</label>
-              <input type="number" name="prepare" id="prepare" min="0" placeholder="0:00" />
-            </div>
           </div>
-          <div class="buttons">
-            <div class="control">
-              <button class="start">Start</button>
-              <button class="stop">Stop</button>
-              <button class="reset" type="reset">Reset</button>
-            </div>
-            <div class="save">
-              <button class="saveWorkoutBtn">Save Workout</button>
-            </div>
+
+          <div class="save">
+            <button class="saveWorkoutBtn">Save Workout</button>
           </div>
         </form>
       </section>

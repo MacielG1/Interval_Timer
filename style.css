@@ -78,20 +78,23 @@ select {
     background-color: black;
     color: white;
     --title-color: rgb(0, 99, 230);
+    --progressBar-color: rgb(0, 116, 25);
 }
 main {
 
   display: flex;
 }
 .container {
+  background-color: black;
   width:40%;
-  height: 80vh;
+  height: 85vh;
   border: 2px solid white;
   border-radius: 3em;
   margin: 0 auto;
   margin-top: 3em;
   display: flex;
   flex-direction: column;
+  gap: 1em;
 }
 .display {
   display: flex;
@@ -107,13 +110,14 @@ main {
 .roundsDisplay {
   font-size: 3vw;
   position: absolute;
-  left: 20.8em;
+  left: 21em;
   margin-top: 0.2em;
   color: var(--title-color)
   
 }
 
 .options {
+  padding-top: 1em;
   text-align: center;
   display: grid;
   justify-content: center;
@@ -130,20 +134,33 @@ main {
   margin-right: 0.5em;
 }
 
-
-.options input[type=number]:not(.timeInput)  {
-  width: 6em;
-  height: 1.2em;
-  font-size: 1.5vw;
-  border-radius: 0.5em;
-  border: none;
-  outline: none ;
-  background-color: rgb(182, 182, 182);
-  text-align: center;
-  padding-left: 0.5em;
-  vertical-align: middle;
+.options input[type=number]:not(.timeInput)
+  {
+    
+    width: 6.2em;
+    height: 1.2em;
+    font-size: 1.5vw;
+    border-radius: 0.5em;
+    border: none;
+    outline: none;
+    background-color: rgb(182, 182, 182);
+    text-align: center;
+    display: flex;
+    align-items: center;
 
 }
+input[type=number]::-webkit-outer-spin-button, 
+.options input[type=number]:not(.timeInput):focus{
+  outline: none ;
+  background-color: rgb(207, 207, 207);
+  outline: 3px solid var(--title-color);;
+}
+
+.options input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(0, 0, 0);
+  opacity: 1; /* Firefox */
+}
+
 .inputBox {
   display: flex;
   gap: 0.2em
@@ -153,8 +170,11 @@ font-size: 2em;
 line-height: 0.9;
 }
 
+
+
 .options .timeInput {
-  width: 2.7em;
+  
+  width: 2.8em;
   height: 1.2em;
   font-size: 1.5vw;
   border-radius: 0.5em;
@@ -162,14 +182,19 @@ line-height: 0.9;
   outline: none ;
   background-color: rgb(182, 182, 182);
   text-align: center;
-  padding-left: 0.5em;
-  vertical-align: middle;
+  display: inline-block;
+ 
 }
 
 .options input:focus{
+  
   outline: none ;
   background-color: rgb(240, 240, 240);
   outline: 3px solid var(--title-color);;
+}
+
+.options input:focus::placeholder {
+  color: transparent;
 }
 .options div {
   display: flex;
@@ -190,32 +215,36 @@ cursor: pointer;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 50%;
 }
+
+
 .buttons {
   margin-top: 3em;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-
 }
 .buttons button {
+  border: 2px solid black;
   border-radius: 0.75em;
   padding: 0.12em 0.6em;
   cursor: pointer;
   flex-flow:column wrap;  
 }
+.buttons .start {
+  background-color: #05a630;
+}
+.buttons .stop {
+  background-color: #ad002b;
+}
+.buttons .reset {
+  background-color: rgb(226, 226, 226);
+}
+
 .buttons .control button {
   font-size: 2rem;
   margin: 0.2em;
+}
 
-}
-.buttons .save button{
-  padding: 0.08em 0.3em;
-  text-align: center;
-  font-size: 1.2rem;
-  background-color: var(--title-color);
-  color: black;
-}
 .save {
   margin-top: 1.5em;
   display: flex;
@@ -223,13 +252,46 @@ cursor: pointer;
   justify-content: flex-end;
 }
 .saveWorkoutBtn {
-  margin-top: 5em;
-  margin-right: 1.2em;
+  margin:  0 auto;
+  padding: 0.2em 0.98em;
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: var(--title-color);
+  color: black;
+  border-radius: 2em;
+}
+/* PROGRESS BAR*/
+progress {
+  /* Style the container */
+  margin:  0 auto;
+  width: 60%;
+  height: 2.5em;
+  border-radius: 4em;
+  background-color: #999999;
 }
 
+/* Style the value */
+#progressBar::-webkit-progress-value {
+ background-color: var(--progressBar-color);
+}
+
+progress::-webkit-progress-bar {
+  border: 0;
+  border-radius: 1.2em;
+}
+progress::-webkit-progress-value {
+  border: 0;
+ 
+  border-radius:  1.2em;
+}
+progress::-moz-progress-bar {
+  border: 0;
+  border-radius:  1.2em;
+}
 /* ///   SIDEBAR   /// */
 
 aside .savedWorkouts {
+  
   margin: 1.1em;
   margin-top: 3em;
   padding-left: 2em;
@@ -239,14 +301,13 @@ aside .savedWorkouts {
   
 }
 .workout {
+  background-color: black;
   padding: 1em;
   padding-bottom: 0.5em;
   border: 2px solid var(--title-color);
   border-radius: 2em;
 
 }
-
-
 
 .workout .deleteBtn {
   
@@ -292,7 +353,6 @@ aside .savedWorkouts {
 }
 
 
-/* /// MEDIA QUERIES  /// */
 @media only screen and (max-width: 600px) {
 main {
   display: grid;
