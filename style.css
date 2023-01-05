@@ -88,7 +88,7 @@ main {
   background-color: black;
   width:40%;
   height: 85vh;
-  border: 2px solid white;
+  border: 0.2em solid rgb(216, 216, 216);
   border-radius: 3em;
   margin: 0 auto;
   margin-top: 3em;
@@ -122,6 +122,7 @@ main {
   display: grid;
   justify-content: center;
   gap: 0.8em;
+  margin-left: -4em;
   
 }
 
@@ -133,7 +134,9 @@ main {
   vertical-align: middle;
   margin-right: 0.5em;
 }
-
+.options input[type=number]{
+ padding-left: 0.5em;
+}
 .options input[type=number]:not(.timeInput)
   {
     
@@ -142,11 +145,11 @@ main {
     font-size: 1.5vw;
     border-radius: 0.5em;
     border: none;
-    outline: none;
+
     background-color: rgb(182, 182, 182);
     text-align: center;
-    display: flex;
-    align-items: center;
+    
+   
 
 }
 input[type=number]::-webkit-outer-spin-button, 
@@ -216,21 +219,32 @@ cursor: pointer;
   border-radius: 50%;
 }
 
-
+button:not(.deleteBtn){
+  transition: transform 0.5s 
+}
+button:hover:not(.deleteBtn){
+  transform: scale(1.05, 1.05);
+}
 .buttons {
+  
   margin-top: 3em;
   display: flex;
   flex-direction: column;
   align-items: center;
+ 
 }
 .buttons button {
+  
+  width: 5em;
   border: 2px solid black;
   border-radius: 0.75em;
-  padding: 0.12em 0.6em;
+  text-align: center;
   cursor: pointer;
-  flex-flow:column wrap;  
+
 }
+
 .buttons .start {
+  
   background-color: #05a630;
 }
 .buttons .stop {
@@ -248,25 +262,26 @@ cursor: pointer;
 .save {
   margin-top: 1.5em;
   display: flex;
-  align-self: flex-end;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .saveWorkoutBtn {
-  margin:  0 auto;
-  padding: 0.2em 0.98em;
+  border: 2px solid black;
+  padding: 0.2em 0.5em;
   text-align: center;
   font-size: 1.2rem;
   background-color: var(--title-color);
   color: black;
-  border-radius: 2em;
+  border-radius: 0.9em;
+  cursor: pointer;
+
 }
 /* PROGRESS BAR*/
 progress {
   /* Style the container */
   margin:  0 auto;
-  width: 60%;
+  width: 62%;
   height: 2.5em;
-  border-radius: 4em;
+  border-radius: 0.84em;
   background-color: #999999;
 }
 
@@ -277,27 +292,30 @@ progress {
 
 progress::-webkit-progress-bar {
   border: 0;
-  border-radius: 1.2em;
+  border-radius: 0.84em;
 }
 progress::-webkit-progress-value {
   border: 0;
  
-  border-radius:  1.2em;
+  border-radius:  0.84em;
 }
 progress::-moz-progress-bar {
   border: 0;
-  border-radius:  1.2em;
+  border-radius:  0.84em;
 }
 /* ///   SIDEBAR   /// */
 
-aside .savedWorkouts {
+aside .sidebar {
   
   margin: 1.1em;
   margin-top: 3em;
   padding-left: 2em;
   position: absolute;
-  width: 14vw;
+  width: 14.5vw;
   display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  justify-content: center;
   
 }
 .workout {
@@ -305,22 +323,54 @@ aside .savedWorkouts {
   padding: 1em;
   padding-bottom: 0.5em;
   border: 2px solid var(--title-color);
-  border-radius: 2em;
+  border-radius: 1em;
 
 }
 
-.workout .deleteBtn {
-  
-  text-align: center;
-  font-size: 0.6rem;
-  line-height: 1rem;
+
+.deleteBtn {
   float: right;
-  background-color: black;
-  border: 2px solid red;
+  background-color: red;
   border-radius: 50%;
-  color: red;
+  color: white;
+  font-size: 14px;
+  padding: 0.8em 0.8em;
+  border: none;
   cursor: pointer;
+  position: relative;
 }
+
+.deleteBtn::before,
+.deleteBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  width: 10px;
+  height: 1px;
+  margin-top: -0.5px;
+  margin-left: -5px;
+  
+}
+
+.deleteBtn::before {
+  transform: rotate(45deg);
+}
+
+.deleteBtn::after {
+  transform: rotate(-45deg);
+}
+
+.deleteBtn:hover {
+  background-color: darkred;
+}
+
+.deleteBtn:active {
+  background-color: lightred;
+}
+
+
 
 
 /* ///// */
@@ -342,6 +392,7 @@ aside .savedWorkouts {
   justify-content: center;
 }
 .workout .startWorkout button {
+  border: 2px solid black;
   margin-top: 0.5em;
   padding: 0.08em 0.4em;
   border-radius: 0.75em;
@@ -350,6 +401,7 @@ aside .savedWorkouts {
   font-size: 1.2rem;
   background-color: var(--title-color);
   color: black;
+  
 }
 
 
@@ -373,7 +425,7 @@ section .container {
   .workout .data {
     grid-template-columns: repeat(1, 1fr);
   }
-  aside .savedWorkouts {
+  aside .sidebar {
     width: 20vw;
   }
 }
