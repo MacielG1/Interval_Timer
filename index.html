@@ -37,14 +37,18 @@
       <section class="container">
         <div class="display">
           <div class="timer">00:00</div>
-          <div class="roundsDisplay">0/0</div>
+          <div class="cornerDisplay">
+            <p class="roundsDisplay">0/0</p>
+            <p class="totalTimeDisplay">Total: 00:00</p>
+          </div>
         </div>
+        <!-- <button class="previousMode"></button> -->
         <progress id="progressBar" value="0" max="100"></progress>
-
+        <!-- <button class="nextMode"></button> -->
         <form action="">
           <div class="buttons">
             <div class="control">
-              <button class="start">Start</button>
+              <button class="start btn">Start</button>
               <button class="stop">Stop</button>
               <button class="reset" type="reset">Reset</button>
             </div>
@@ -57,9 +61,9 @@
             <div class="prepare">
               <label for="prepare">Prepare:</label>
               <p class="inputBox">
-                <input type="number" name="prepareMinutes" id="prepareMinutes" class="timeInput" min="0" value="00" />
+                <input type="number" name="prepareMinutes" id="prepareMinutes" class="timeInput mins" min="0" value="00" />
                 <span>:</span>
-                <input type="number" name="prepareSeconds" id="prepareSeconds" class="timeInput" min="0" value="02" />
+                <input type="number" name="prepareSeconds" id="prepareSeconds" class="timeInput secs" min="0" value="02" />
               </p>
             </div>
             <div class="work">
@@ -68,25 +72,31 @@
                 <input type="number" name="workMinutes" id="workMinutes" min="0" placeholder="00" />
               </div> -->
               <p class="inputBox">
-                <input type="number" name="workMinutes" id="workMinutes" class="timeInput" min="0" value="00" /> <span>:</span>
-                <input type="number" name="workSeconds" id="workSeconds" class="timeInput" min="0" value="03" />
+                <input type="number" name="workMinutes" id="workMinutes" class="timeInput mins" min="0" value="00" /> <span>:</span>
+                <input type="number" name="workSeconds" id="workSeconds" class="timeInput secs" min="0" value="03" />
               </p>
               <input type="color" id="workColor" name="workColor" value="#00993B" />
             </div>
             <div class="rest">
               <label for="rest">Rest:</label>
               <p class="inputBox">
-                <input type="number" name="restMinutes" id="restMinutes" class="timeInput" min="0" value="00" /> <span>:</span>
-                <input type="number" name="restSeconds" id="restSeconds" class="timeInput" min="0" value="02" />
+                <input type="number" name="restMinutes" id="restMinutes" class="timeInput mins" min="0" value="00" /> <span>:</span>
+                <input type="number" name="restSeconds" id="restSeconds" class="timeInput secs" min="0" value="02" />
               </p>
               <input type="color" id="restColor" name="restColor" value="#DB0000" />
             </div>
           </div>
 
           <div class="save">
-            <button class="saveWorkoutBtn">Save Workout</button>
+            <input type="text" class="workoutName" id="workout-name" maxlength="15" placeholder="Workout Name" />
+            <button class="saveWorkoutBtn">Save</button>
           </div>
         </form>
+
+        <div class="checkBtn">
+          <label for="colorCheckbox">Background Color:</label>
+          <input id="colorCheckbox" checked type="checkbox" />
+        </div>
       </section>
     </main>
   </body>

@@ -20,8 +20,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
@@ -60,9 +60,9 @@ select {
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
-  
+
   *,
   *::before,
   *::after {
@@ -74,46 +74,54 @@ select {
 }
 /* My Code */
 :root {
-  font-family: 'Work Sans', sans-serif;
-    background-color: black;
-    color: white;
-    --title-color: rgb(0, 99, 230);
-    --progressBar-color: rgb(0, 116, 25);
+  font-family: "Work Sans", sans-serif;
+  background-color: black;
+  color: white;
+  --title-color: rgb(0, 99, 230);
+  --progressBar-color: #007419;
 }
 main {
-
   display: flex;
 }
 .container {
   background-color: black;
-  width:40%;
-  height: 85vh;
+  width: 40%;
+  height: 86vh;
   border: 0.2em solid rgb(216, 216, 216);
   border-radius: 3em;
   margin: 0 auto;
   margin-top: 3em;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.1em;
 }
 .display {
   display: flex;
   justify-content: center;
-
 }
-.timer{
+.timer {
   font-size: 9vw;
   text-size-adjust: auto;
   text-align: center;
   color: var(--title-color);
+  margin-top: 0.2em;
+}
+.cornerDisplay {
+  width: 6.5em;
+  margin-top: 0.3em;
+  margin-bottom: 0.2em;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 51.2em;
+  font-size: 1.2vw;
+  text-align: center;
+  color: var(--title-color);
+  gap: 0.2em;
 }
 .roundsDisplay {
-  font-size: 3vw;
-  position: absolute;
-  left: 21em;
-  margin-top: 0.2em;
-  color: var(--title-color)
-  
+  transform: scale(2);
+  margin-top: 0.5em;
 }
 
 .options {
@@ -123,7 +131,6 @@ main {
   justify-content: center;
   gap: 0.8em;
   margin-left: -4em;
-  
 }
 
 .options label {
@@ -134,66 +141,58 @@ main {
   vertical-align: middle;
   margin-right: 0.5em;
 }
-.options input[type=number]{
- padding-left: 0.5em;
+.options input[type="number"] {
+  padding-left: 0.5em;
 }
-.options input[type=number]:not(.timeInput)
-  {
-    
-    width: 6.2em;
-    height: 1.2em;
-    font-size: 1.5vw;
-    border-radius: 0.5em;
-    border: none;
+.options input[type="number"]:not(.timeInput) {
+  width: 6.2em;
+  height: 1.2em;
+  font-size: 1.5vw;
+  border-radius: 0.5em;
+  border: none;
 
-    background-color: rgb(182, 182, 182);
-    text-align: center;
-    
-   
-
+  background-color: rgb(182, 182, 182);
+  text-align: center;
 }
-input[type=number]::-webkit-outer-spin-button, 
-.options input[type=number]:not(.timeInput):focus{
-  outline: none ;
+input[type="number"]::-webkit-outer-spin-button,
+.options input[type="number"]:not(.timeInput):focus {
+  outline: none;
   background-color: rgb(207, 207, 207);
-  outline: 3px solid var(--title-color);;
+  outline: 3px solid var(--title-color);
 }
 
-.options input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.options input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgb(0, 0, 0);
   opacity: 1; /* Firefox */
 }
 
 .inputBox {
   display: flex;
-  gap: 0.2em
+  gap: 0.2em;
 }
-.inputBox span{
-font-size: 2em;
-line-height: 0.9;
+.inputBox span {
+  margin: 0 0.2em;
+  margin-top: 0.32em;
+  transform: scale(2);
 }
-
-
 
 .options .timeInput {
-  
   width: 2.8em;
   height: 1.2em;
   font-size: 1.5vw;
   border-radius: 0.5em;
   border: none;
-  outline: none ;
+  outline: none;
   background-color: rgb(182, 182, 182);
   text-align: center;
   display: inline-block;
- 
 }
 
-.options input:focus{
-  
-  outline: none ;
+.options input:focus {
+  outline: none;
   background-color: rgb(240, 240, 240);
-  outline: 3px solid var(--title-color);;
+  outline: 3px solid var(--title-color);
 }
 
 .options input:focus::placeholder {
@@ -203,50 +202,64 @@ line-height: 0.9;
   display: flex;
   flex-direction: row;
 }
-.options input[type=color] {
- margin-left: 0.3em;
- background-color: black;
- border-radius: 50%;
- height: 2em;
- width: 2em;
- border: none;
- outline: none;
-cursor: pointer;
+.options input[type="color"] {
+  margin-left: 0.3em;
+  background-color: black;
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
-.options input[type=color]::-webkit-color-swatch {
+.options input[type="color"]::-webkit-color-swatch {
   border: 2px solid rgb(255, 255, 255);
   border-radius: 50%;
 }
-
-button:not(.deleteBtn){
-  transition: transform 0.5s 
+.fade-out {
+  transition: all 0.3s ease-in-out; /*if changed, also change the js timeout ms to be the same */
+  opacity: 0;
 }
-button:hover:not(.deleteBtn){
-  transform: scale(1.05, 1.05);
+
+.btn {
+  transition: all 0.3s;
+  transition-delay: 0.3s;
+}
+.inputTransition {
+  transition: all 0.3s;
+}
+button:not(.deleteBtn) {
+  transition: transform 0.3s;
+}
+button:hover:not(.deleteBtn) {
+  transform: scale(1.03, 1.03);
 }
 .buttons {
-  
   margin-top: 3em;
   display: flex;
   flex-direction: column;
   align-items: center;
- 
 }
 .buttons button {
-  
   width: 5em;
   border: 2px solid black;
   border-radius: 0.75em;
   text-align: center;
   cursor: pointer;
-
 }
 
 .buttons .start {
-  
   background-color: #05a630;
 }
+/* .startBtnText {
+  transition: width 0.5s;
+}
+
+.startBtnTextDisabled {
+  width: 0;
+  overflow: hidden;
+} */
 .buttons .stop {
   background-color: #ad002b;
 }
@@ -258,11 +271,20 @@ button:hover:not(.deleteBtn){
   font-size: 2rem;
   margin: 0.2em;
 }
-
+.workoutName {
+  width: 12em;
+  background-color: rgb(0, 0, 0);
+  border: 2px solid rgb(202, 202, 202);
+  color: #ccc;
+  border-radius: 1em;
+  padding: 0.2em 0.5em;
+  text-align: center;
+}
 .save {
   margin-top: 1.5em;
   display: flex;
   justify-content: center;
+  gap: 0.5em;
 }
 .saveWorkoutBtn {
   border: 2px solid black;
@@ -273,64 +295,96 @@ button:hover:not(.deleteBtn){
   color: black;
   border-radius: 0.9em;
   cursor: pointer;
-
 }
 /* PROGRESS BAR*/
 progress {
   /* Style the container */
-  margin:  0 auto;
+  margin: 0 auto;
+  min-height: 2em;
   width: 62%;
   height: 2.5em;
-  border-radius: 0.84em;
-  background-color: #999999;
+  border-radius: 1em;
+  background-color: #000000;
+  outline: 3px solid black;
 }
 
 /* Style the value */
 #progressBar::-webkit-progress-value {
- background-color: var(--progressBar-color);
+  background-color: var(--progressBar-color);
 }
 
 progress::-webkit-progress-bar {
-  border: 0;
-  border-radius: 0.84em;
+  border-radius: 1em;
 }
 progress::-webkit-progress-value {
-  border: 0;
- 
-  border-radius:  0.84em;
+  border-radius: 1em;
 }
 progress::-moz-progress-bar {
-  border: 0;
-  border-radius:  0.84em;
+  border-radius: 1em;
 }
+
+.checkBtn {
+  margin-top: 0.1em;
+  transform: scale(0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  gap: 0.4em;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  appearance: none;
+  width: 100px;
+  height: 50px;
+  background: #ccc;
+  border-radius: 50px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+input:checked[type="checkbox"] {
+  background: var(--title-color);
+}
+
+input[type="checkbox"]::after {
+  position: absolute;
+  content: "";
+  width: 50px;
+  height: 50px;
+  top: 0;
+  left: 0;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  transition: 0.4s;
+}
+
+input:checked[type="checkbox"]::after {
+  left: 50%;
+}
+
 /* ///   SIDEBAR   /// */
 
 aside .sidebar {
-  
   margin: 1.1em;
   margin-top: 3em;
-  padding-left: 2em;
+  padding-left: 2.5em;
   position: absolute;
   width: 14.5vw;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   justify-content: center;
-  
 }
-.workout {
-  background-color: black;
-  padding: 1em;
-  padding-bottom: 0.5em;
-  border: 2px solid var(--title-color);
-  border-radius: 1em;
-
-}
-
 
 .deleteBtn {
   float: right;
   background-color: red;
+  min-width: 0.4em;
   border-radius: 50%;
   color: white;
   font-size: 14px;
@@ -351,7 +405,6 @@ aside .sidebar {
   height: 1px;
   margin-top: -0.5px;
   margin-left: -5px;
-  
 }
 
 .deleteBtn::before {
@@ -369,24 +422,37 @@ aside .sidebar {
 .deleteBtn:active {
   background-color: lightred;
 }
-
-
-
-
+.colorSaved {
+  margin-top: 0.2em;
+  margin-right: 0.5em;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+}
 /* ///// */
+
+.workout {
+  width: 20em;
+  background-color: black;
+  padding: 1em;
+  padding-bottom: 0.5em;
+  border: 2px solid var(--title-color);
+  border-radius: 1em;
+}
 .workout .title {
   text-align: center;
   font-size: 1.6rem;
 }
-.workout .data {
- display: grid;
- grid-template-columns: repeat(2, 1fr);
- justify-content: center;
-  align-items: center;
-  gap: 0 1em;
-  white-space: nowrap;
 
+.workout .data {
+  margin-top: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
 }
+
 .workout .startWorkout {
   display: flex;
   justify-content: center;
@@ -401,31 +467,141 @@ aside .sidebar {
   font-size: 1.2rem;
   background-color: var(--title-color);
   color: black;
-  
 }
 
-
-@media only screen and (max-width: 600px) {
-main {
-  display: grid;
-  grid-template-areas: "top"
-											 "bottom";
-}
-aside {
-  grid-area: bottom;
-}
-section .container {
-  grid-area: top;
-}
-
-}
-
-
-@media only screen and (max-width: 768px) {
-  .workout .data {
-    grid-template-columns: repeat(1, 1fr);
+@media screen and (max-width: 1366px) {
+  main {
+    display: flex;
+    gap: 4em;
   }
-  aside .sidebar {
+  .workout .data {
+    display: flex;
+    flex-direction: column;
+  }
+  .workout .data p:nth-of-type(1) {
+    order: 1;
+  }
+  .workout .data p:nth-of-type(2) {
+    order: 3;
+  }
+  .workout .data p:nth-of-type(3) {
+    order: 2;
+  }
+  .workout .data p:nth-of-type(4) {
+    order: 4;
+  }
+  .workout {
     width: 20vw;
+  }
+  .timer {
+    font-size: 10vw;
+    margin-top: 0.4em;
+  }
+  .cornerDisplay {
+    left: 47em;
+    font-size: 1.5vw;
+  }
+
+  .container {
+    width: 55%;
+  }
+  .buttons .control {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .buttons button {
+    margin: 0.2em;
+
+    width: 10vw;
+    border: 2px solid black;
+    border-radius: 0.75em;
+  }
+  .buttons .control button {
+    font-size: 1.5em;
+    margin: 0.2em;
+  }
+  .options {
+    margin-left: 0;
+  }
+  .options input[type="number"] {
+    width: 3em;
+    font-size: 1.2rem;
+  }
+  .options #rounds {
+    margin-left: 0.3em;
+    width: 6em;
+    font-size: 1.2rem;
+  }
+  .options .timeInput {
+    width: 2.4em;
+    font-size: 1.2rem;
+  }
+
+  aside {
+    margin-right: 3em;
+  }
+  .inputBox span {
+    /* margin: 0 0.2em; */
+    margin-top: 0.1em;
+    transform: scale(1.8);
+  }
+  .workout .title {
+    white-space: nowrap;
+    font-size: 1.2rem;
+  }
+  .workout .data p:nth-of-type(1) {
+    width: 6em;
+  }
+  .workout .data p:nth-of-type(2),
+  .workout .data p:nth-of-type(3),
+  .workout .data p:nth-of-type(4) {
+    width: 8em;
+  }
+}
+
+@media screen and (max-width: 815px) {
+  main {
+    gap: 1em;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .timer {
+    font-size: 12vw;
+  }
+  .cornerDisplay {
+    left: 28em;
+    font-size: 2.5vw;
+  }
+
+  .workout {
+    width: 50vw;
+    margin: 0 auto;
+  }
+
+  aside .sidebar {
+    position: static;
+    width: inherit;
+  }
+  .container {
+    width: 80vw;
+  }
+  .buttons button {
+    width: 17vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .buttons button {
+    width: 22vw;
+  }
+  .timer {
+    margin-top: 1em;
+  }
+  .cornerDisplay {
+    left: 22em;
+    font-size: 3vw;
+  }
+  .options label {
+    font-size: 1.1rem;
   }
 }
