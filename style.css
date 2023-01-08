@@ -79,6 +79,7 @@ select {
   color: white;
   --title-color: rgb(0, 99, 230);
   --progressBar-color: #007419;
+  --saved-border-color: #0063e6;
 }
 main {
   display: flex;
@@ -104,7 +105,7 @@ main {
   text-size-adjust: auto;
   text-align: center;
   color: var(--title-color);
-  margin-top: 0.2em;
+  margin-top: 0.32em;
 }
 .cornerDisplay {
   width: 6.5em;
@@ -113,8 +114,8 @@ main {
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: 51.2em;
-  font-size: 1.2vw;
+  left: 42.8em;
+  font-size: 1.4vw;
   text-align: center;
   color: var(--title-color);
   gap: 0.2em;
@@ -281,7 +282,7 @@ button:hover:not(.deleteBtn) {
   text-align: center;
 }
 .save {
-  margin-top: 1.5em;
+  margin-top: 1.6em;
   display: flex;
   justify-content: center;
   gap: 0.5em;
@@ -291,7 +292,7 @@ button:hover:not(.deleteBtn) {
   padding: 0.2em 0.5em;
   text-align: center;
   font-size: 1.2rem;
-  background-color: var(--title-color);
+  background-color: var(--saved-border-color);
   color: black;
   border-radius: 0.9em;
   cursor: pointer;
@@ -303,9 +304,8 @@ progress {
   min-height: 2em;
   width: 62%;
   height: 2.5em;
-  border-radius: 1em;
+  border-radius: 0.3em;
   background-color: #000000;
-  outline: 3px solid black;
 }
 
 /* Style the value */
@@ -314,30 +314,75 @@ progress {
 }
 
 progress::-webkit-progress-bar {
-  border-radius: 1em;
+  border-radius: 0.3em;
 }
 progress::-webkit-progress-value {
-  border-radius: 1em;
+  border-radius: 0.3em;
 }
 progress::-moz-progress-bar {
-  border-radius: 1em;
+  border-radius: 0.3em;
 }
-
-.checkBtn {
-  margin-top: 0.1em;
-  transform: scale(0.45);
+.button_bar_div button {
+  color: #000000;
+}
+.settings {
+  position: absolute;
+  right: 0;
+  margin-top: 1.4em;
+  padding-right: 1.2em;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 2.5em;
+  flex-direction: column;
+}
+.gear-button-container {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 0.5em;
+}
+.gear-button {
+  width: 2.5em;
+  height: 2.5em;
+  background-size: 2.5em 2.5em;
+  background-color: transparent;
+  fill: white;
+  color: blue;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.settings path,
+.settings svg {
+  pointer-events: none;
+}
+.toggles {
+  display: flex;
+  opacity: 0;
+  justify-content: start;
+  flex-direction: column;
+  margin: 0;
+  margin-top: 0.8em;
+  margin-right: 0.8em;
+  gap: 0.4em;
+  transition: opacity 0.25s;
+}
+.toggle-on {
+  opacity: 1;
+  visibility: visible;
+}
+.checkBtn {
+  /* transform: scale(0.5); */
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: 1.1rem;
   gap: 0.4em;
 }
 
 input[type="checkbox"] {
   position: relative;
   appearance: none;
-  width: 100px;
-  height: 50px;
+  width: 40px;
+  height: 20px;
   background: #ccc;
   border-radius: 50px;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
@@ -352,8 +397,8 @@ input:checked[type="checkbox"] {
 input[type="checkbox"]::after {
   position: absolute;
   content: "";
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   top: 0;
   left: 0;
   background: #fff;
@@ -366,6 +411,14 @@ input[type="checkbox"]::after {
 input:checked[type="checkbox"]::after {
   left: 50%;
 }
+.move-down {
+  transition: transform 0.75s;
+  transform: translateY(5.5em);
+}
+.move-up {
+  transition: transform 0.75s;
+  transform: translateY(0em);
+}
 
 /* ///   SIDEBAR   /// */
 
@@ -377,7 +430,7 @@ aside .sidebar {
   width: 14.5vw;
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 0.8em;
   justify-content: center;
 }
 
@@ -440,6 +493,7 @@ aside .sidebar {
   border: 2px solid var(--title-color);
   border-radius: 1em;
 }
+
 .workout .title {
   text-align: center;
   font-size: 1.6rem;
@@ -468,7 +522,11 @@ aside .sidebar {
   background-color: var(--title-color);
   color: black;
 }
-
+@media screen and (max-width: 1366px) {
+  .container {
+    width: 54%;
+  }
+}
 @media screen and (max-width: 1366px) {
   main {
     display: flex;
@@ -498,12 +556,12 @@ aside .sidebar {
     margin-top: 0.4em;
   }
   .cornerDisplay {
-    left: 47em;
+    left: 45em;
     font-size: 1.5vw;
   }
 
   .container {
-    width: 55%;
+    width: 50%;
   }
   .buttons .control {
     display: flex;
@@ -558,19 +616,98 @@ aside .sidebar {
     width: 8em;
   }
 }
+@media screen and (max-width: 1170px) {
+  .container {
+    height: 75vh;
+  }
+  .timer {
+    margin-top: 0.6em;
+  }
+  .cornerDisplay {
+    margin-top: 0.8em;
+    left: 32.5em;
+    font-size: 2vw;
+  }
 
+  .settings {
+    margin-top: 0.3em;
+  }
+
+  .gear-button {
+    width: 2.4em;
+    height: 2.4em;
+    background-size: 2.4em 2.4em;
+  }
+  .toggles {
+    font-size: 0.2rem;
+    gap: 1em;
+  }
+  .checkBtn {
+    padding: 0.3em;
+  }
+  .checkBtn span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    margin-top: 0.8em;
+    height: 80vh;
+  }
+  .timer {
+    font-size: 12vw;
+    margin-top: 0.85em;
+  }
+  .cornerDisplay {
+    left: 20em;
+    font-size: 3vw;
+  }
+  aside .sidebar {
+    margin-top: 0.8em;
+  }
+  .settings {
+    position: relative;
+    display: flex;
+    height: 2.35em;
+    align-items: end;
+  }
+
+  .toggles {
+    flex-direction: column;
+  }
+
+  .checkBtn {
+    min-width: 10em;
+  }
+  .checkBtn span {
+    display: inline-block;
+  }
+
+  /* .settings {
+    left: 15%;
+    bottom: 5%;
+  }
+  .toggles {
+    font-size: 0.2rem;
+    gap: 5em;
+    flex-direction: row;
+  }
+  .checkBtn {
+    min-width: 10em;
+  } */
+}
 @media screen and (max-width: 815px) {
   main {
     gap: 1em;
     display: flex;
     flex-direction: column-reverse;
   }
-  .timer {
-    font-size: 12vw;
-  }
-  .cornerDisplay {
-    left: 28em;
-    font-size: 2.5vw;
+  .container {
+    width: 68vw;
+    height: 70vh;
+    margin-bottom: 0.5em;
   }
 
   .workout {
@@ -579,29 +716,51 @@ aside .sidebar {
   }
 
   aside .sidebar {
+    margin-left: 2em;
+    margin-top: -0.2em;
+
+    gap: 1em;
     position: static;
     width: inherit;
   }
-  .container {
-    width: 80vw;
-  }
+
   .buttons button {
     width: 17vw;
   }
+  /* .settings {
+    margin-bottom: -2.5em;
+    margin-left: 50%;
+  }
+  .toggles {
+    font-size: 0.2rem;
+    gap: 3em;
+    flex-direction: column;
+  } */
 }
 
 @media screen and (max-width: 500px) {
+  .container {
+    width: 90%;
+    border-width: 1px;
+    height: 65vh;
+  }
+  .buttons .control button {
+    font-size: 1.35em;
+  }
   .buttons button {
-    width: 22vw;
+    width: 20vw;
   }
   .timer {
-    margin-top: 1em;
+    margin-top: 1.3em;
+    font-size: 4em;
   }
   .cornerDisplay {
-    left: 22em;
-    font-size: 3vw;
+    margin-top: 0.8em;
+    left: 7.8em;
+    font-size: 4.5vw;
   }
   .options label {
-    font-size: 1.1rem;
+    margin-left: 0.1em;
+    font-size: 0.9rem;
   }
 }

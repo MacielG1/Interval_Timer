@@ -5,7 +5,7 @@ let roundsDisplay = document.querySelector(".display .roundsDisplay");
 let totalTimeDisplay = document.querySelector(".display .totalTimeDisplay");
 // progress bar
 let progressBar = document.querySelector("#progressBar");
-// container
+// main container
 let container = document.querySelector(".container");
 // rounds input
 let rounds = document.querySelector("#rounds");
@@ -27,15 +27,32 @@ let startBtn = document.querySelector(".buttons .start");
 let pauseBtn = document.querySelector(".buttons .stop");
 let resetBtn = document.querySelector(".buttons .reset");
 let saveWorkoutBtn = document.querySelector(".saveWorkoutBtn");
+//settings
+let settings = document.querySelector(".settings");
+let settingsBtn = document.querySelector(".gear-button-container");
 let toggleBackgroundColor = document.querySelector("#colorCheckbox");
+let toggleSkipLastRest = document.querySelector("#skipLastRest");
 // sidebar
 let sidebar = document.querySelector(".sidebar");
 let loadWorkoutBtn;
 let deleteWorkoutBtn;
+let workoutSavedContainer;
+
+// check for settings on local storage
+let isToggled = JSON.parse(localStorage.getItem("toggleBgColor")) || true;
+let skipLastRest = JSON.parse(localStorage.getItem("skipLastRest") || true);
+if (isToggled) {
+  toggleBackgroundColor.checked = true;
+} else {
+  toggleBackgroundColor.checked = false;
+}
+if (skipLastRest) {
+  toggleSkipLastRest.checked = true;
+} else {
+  toggleSkipLastRest.checked = false;
+}
 //
-
 let WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
-
 if (WorkoutsSaved) {
   showSavedWorkouts();
 }
@@ -90,6 +107,7 @@ function showSavedWorkouts(transition) {
       restColor.value = workout.restColorDisplay;
     });
   });
+  workoutSavedContainer = document.querySelectorAll(".workout");
 }
 //
 class Timer {
@@ -183,6 +201,16 @@ timeInput.forEach((input) => {
     }
   });
 });
+let maxValue = 1000000;
+rounds.addEventListener("blur", (event) => {
+  // Get the current value of the input element
+  let value = event.target.value;
+
+  // If the value is greater than the maximum allowed value, set the value to the maximum allowed value
+  if (value > maxValue) {
+    event.target.value = maxValue;
+  }
+});
 //
 
 let paused = true;
@@ -235,24 +263,8 @@ pauseBtn.addEventListener("click", (e) => {
   }
 });
 resetBtn.addEventListener("click", () => {
-  paused = true;
-  intervalId.stop();
-  document.body.style.backgroundColor = "black";
-  sec = "0" + 0;
-  min = "0" + 0;
-  time = `00:00`;
-  mins = 0;
-  secs = 0;
-  currentRound = 0;
-  roundsDisplay.textContent = `${currentRound}/${rounds.value}`;
-  intervalWhenPaused = "prepare";
-
-  timeDisplay.textContent = "00:00";
-  container.style.borderWidth = "0.2em";
-  container.style.borderColor = "rgb(216, 216, 216)";
-  startBtn.textContent = "Start";
-  progressBar.value = 0;
-  totalTimeDisplay.textContent = "Total: 00:00";
+  resetTimer();
+  resetWhenToggled();
 });
 let workoutsArr = [];
 saveWorkoutBtn.addEventListener("click", (e) => {
@@ -269,32 +281,61 @@ saveWorkoutBtn.addEventListener("click", (e) => {
   };
 
   workoutsArr.push(currentWorkout);
-
-  // Save the updated array to local storage
   localStorage.setItem("workouts", JSON.stringify(workoutsArr));
 
   WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
 
   sidebar.innerHTML = "";
   showSavedWorkouts(true);
+  e.target.parentElement.querySelector(".workoutName").value = "";
 });
-let isToggled = true;
+const toggles = document.querySelector(".toggles");
+const mediaQuery = window.matchMedia("(max-width: 1000px)");
+settingsBtn.addEventListener("click", (e) => {
+  // e.target.parentElement.querySelector(".toggles").classList.toggle("toggle-on");
+  toggles.classList.toggle("toggle-on");
+  if (mediaQuery.matches) {
+    if (document.querySelector("main").classList.contains("move-down")) {
+      document.querySelector("main").classList.remove("move-down");
+      document.querySelector("main").classList.add("move-up");
+    } else {
+      document.querySelector("main").classList.remove("move-up");
+      document.querySelector("main").classList.add("move-down");
+    }
+  }
+});
+
+//
+
 toggleBackgroundColor.addEventListener("change", (e) => {
   if (!e.target.checked) {
     isToggled = false;
+    localStorage.setItem("toggleBgColor", isToggled);
   } else {
     isToggled = true;
+    localStorage.setItem("toggleBgColor", isToggled);
   }
 });
+
+toggleSkipLastRest.addEventListener("change", (e) => {
+  if (!e.target.checked) {
+    skipLastRest = false;
+    localStorage.setItem("skipLastRest", skipLastRest);
+  } else {
+    skipLastRest = true;
+    localStorage.setItem("skipLastRest", skipLastRest);
+  }
+});
+
 //
 
 let sec = "0" + 0;
 let min = "0" + 0;
 let time = `00:00`;
-let currentRound = 0;
+let currentRound = 1;
 
 function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, restTimeinSec) {
-  if (currentRound < rounds.value) {
+  if (currentRound <= rounds.value) {
     sec++;
 
     sec = sec < 10 ? "0" + sec : sec;
@@ -307,41 +348,52 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     time = `${min}:${sec}`;
 
     if (whichInterval == "prepare") {
-      progressBar.value = sec;
-      progressBar.max = prepTimeinSec;
       progressBar.style.setProperty("--progressBar-color", `#21365c`);
+      progressBar.max = prepTimeinSec;
+      progressBar.value = sec;
     }
 
     if (whichInterval == "prepare" && time > prepTime) {
       whichInterval = "work";
+      toggledBackgroundColor("work");
       container.style.borderColor = `${workColor.value}`;
       sec = "0" + 1;
       min = "0" + 0;
       time = `00:01`;
-      toggledBackgroundColor("work");
-      progressBar.value = sec;
+
       progressBar.max = workTimeinSec;
+      progressBar.value = sec;
       progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
     }
     if (whichInterval == "work") {
       progressBar.value = sec;
       container.style.borderWidth = "0.4em";
+      workoutSavedContainer.forEach((workout) => {
+        if (isToggled) {
+          workout.style.border = "none";
+        }
+      });
     }
     if (whichInterval == "rest") {
       progressBar.value = sec;
     }
 
     if (whichInterval == "work" && time > workTime) {
-      toggledBackgroundColor("rest");
       whichInterval = "rest";
+      toggledBackgroundColor("rest");
       container.style.borderColor = `${restColor.value}`;
       sec = "0" + 1;
       min = "0" + 0;
       time = `00:01`;
-
-      progressBar.value = sec;
       progressBar.max = restTimeinSec;
+      progressBar.value = sec;
       progressBar.style.setProperty("--progressBar-color", `${restColor.value}`);
+      if (currentRound + 1 > rounds.value) {
+        if (skipLastRest) {
+          resetTimer();
+          resetWhenToggled();
+        }
+      }
     }
     if (whichInterval == "rest" && time > restTime) {
       currentRound++;
@@ -354,11 +406,14 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
       time = `00:01`;
       progressBar.max = workTimeinSec;
       progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
-      if (currentRound == rounds.value) {
+
+      if (currentRound > rounds.value) {
         progressBar.value = 0;
         container.style.borderColor = "rgb(216, 216, 216)";
+        roundsDisplay.textContent = `0/0`;
         if (isToggled) {
           document.body.style.backgroundColor = "black";
+          workout.style.border = "none";
         }
         container.style.borderWidth = "0.2em";
         sec = "0" + 0;
@@ -370,22 +425,8 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
     timeDisplay.textContent = `${min}:${sec}`;
   } else {
-    timeDisplay.textContent = `00:00`;
-    if (isToggled) {
-      document.body.style.backgroundColor = "black";
-    }
-    progressBar.value = 0;
-    container.style.borderColor = "rgb(216, 216, 216)";
-    paused = true;
-    whichInterval = "prepare";
-    currentRound = 0;
-    progressBar.value = 0;
-    sec = "0" + 0;
-    min = "0" + 0;
-    time = `00:00`;
-    mins = 0;
-    secs = 0;
-    intervalId.stop();
+    resetTimer();
+    resetWhenToggled();
   }
 }
 function pad(time) {
@@ -426,5 +467,36 @@ function toggledBackgroundColor(mode) {
     }
   } else {
     document.body.style.backgroundColor = "black";
+  }
+}
+
+function resetTimer() {
+  paused = true;
+  intervalId.stop();
+  document.body.style.backgroundColor = "black";
+  sec = "0" + 0;
+  min = "0" + 0;
+  time = `00:00`;
+  mins = 0;
+  secs = 0;
+  currentRound = 1;
+  roundsDisplay.textContent = `0/0`;
+  intervalWhenPaused = "prepare";
+
+  timeDisplay.textContent = "00:00";
+  container.style.borderWidth = "0.2em";
+  container.style.borderColor = "rgb(216, 216, 216)";
+  startBtn.textContent = "Start";
+  progressBar.value = 0;
+  totalTimeDisplay.textContent = "Total: 00:00";
+}
+function resetWhenToggled() {
+  if (isToggled) {
+    document.body.style.backgroundColor = "black";
+    if (sidebar.children.length > 0) {
+      workoutSavedContainer.forEach((workout) => {
+        workout.style.border = "2px solid var(--title-color)";
+      });
+    }
   }
 }
