@@ -368,11 +368,13 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     if (whichInterval == "work") {
       progressBar.value = sec;
       container.style.borderWidth = "0.4em";
-      workoutSavedContainer.forEach((workout) => {
-        if (isToggled) {
-          workout.style.border = "none";
-        }
-      });
+      if (workoutSavedContainer) {
+        workoutSavedContainer.forEach((workout) => {
+          if (isToggled) {
+            workout.style.border = "none";
+          }
+        });
+      }
     }
     if (whichInterval == "rest") {
       progressBar.value = sec;
