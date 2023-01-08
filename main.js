@@ -240,7 +240,12 @@ startBtn.addEventListener("click", (e) => {
   prepTimeinSec = convertHour_Min_Sec_toSec(prepDisplay);
   workTimeinSec = convertHour_Min_Sec_toSec(workDisplay);
   restTimeinSec = convertHour_Min_Sec_toSec(restDisplay);
-  totalWorkoutTime = pad(convertSecondsToMinAndSec(workTimeinSec * rounds.value + restTimeinSec * rounds.value));
+  if (skipLastRest) {
+    totalWorkoutTime = pad(convertSecondsToMinAndSec(workTimeinSec * rounds.value + restTimeinSec * (rounds.value - 1)));
+  } else {
+    totalWorkoutTime = pad(convertSecondsToMinAndSec(workTimeinSec * rounds.value + restTimeinSec * rounds.value));
+  }
+
   totalTimeDisplay.textContent = `Total: ${totalWorkoutTime}`;
 
   if (paused) {
