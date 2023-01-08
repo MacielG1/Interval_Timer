@@ -473,8 +473,10 @@ function toggledBackgroundColor(mode) {
 }
 
 function resetTimer() {
-  paused = true;
-  intervalId.stop();
+  if (!paused) {
+    intervalId.stop();
+    paused = true;
+  }
   document.body.style.backgroundColor = "black";
   sec = "0" + 0;
   min = "0" + 0;
@@ -496,9 +498,11 @@ function resetWhenToggled() {
   if (isToggled) {
     document.body.style.backgroundColor = "black";
     if (sidebar.children.length > 0) {
-      workoutSavedContainer.forEach((workout) => {
-        workout.style.border = "2px solid var(--title-color)";
-      });
+      if (workoutSavedContainer) {
+        workoutSavedContainer.forEach((workout) => {
+          workout.style.border = "2px solid var(--title-color)";
+        });
+      }
     }
   }
 }
