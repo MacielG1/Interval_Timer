@@ -101,6 +101,7 @@ main {
   justify-content: center;
 }
 .timer {
+  font-weight: normal;
   font-size: 9vw;
   text-size-adjust: auto;
   text-align: center;
@@ -253,14 +254,7 @@ button:hover:not(.deleteBtn) {
 .buttons .start {
   background-color: #05a630;
 }
-/* .startBtnText {
-  transition: width 0.5s;
-}
 
-.startBtnTextDisabled {
-  width: 0;
-  overflow: hidden;
-} */
 .buttons .stop {
   background-color: #ad002b;
 }
@@ -299,7 +293,6 @@ button:hover:not(.deleteBtn) {
 }
 /* PROGRESS BAR*/
 progress {
-  /* Style the container */
   margin: 0 auto;
   min-height: 2em;
   width: 62%;
@@ -308,7 +301,6 @@ progress {
   background-color: #000000;
 }
 
-/* Style the value */
 #progressBar::-webkit-progress-value {
   background-color: var(--progressBar-color);
 }
@@ -370,7 +362,6 @@ progress::-moz-progress-bar {
   visibility: visible;
 }
 .checkBtn {
-  /* transform: scale(0.5); */
   display: flex;
   justify-content: end;
   align-items: center;
@@ -684,19 +675,6 @@ aside .sidebar {
   .checkBtn span {
     display: inline-block;
   }
-
-  /* .settings {
-    left: 15%;
-    bottom: 5%;
-  }
-  .toggles {
-    font-size: 0.2rem;
-    gap: 5em;
-    flex-direction: row;
-  }
-  .checkBtn {
-    min-width: 10em;
-  } */
 }
 @media screen and (max-width: 815px) {
   main {
@@ -727,15 +705,6 @@ aside .sidebar {
   .buttons button {
     width: 17vw;
   }
-  /* .settings {
-    margin-bottom: -2.5em;
-    margin-left: 50%;
-  }
-  .toggles {
-    font-size: 0.2rem;
-    gap: 3em;
-    flex-direction: column;
-  } */
 }
 
 @media screen and (max-width: 500px) {

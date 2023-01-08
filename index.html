@@ -43,17 +43,16 @@
 
       <section class="container">
         <div class="display">
-          <div class="timer">00:00</div>
+          <h1 class="timer">00:00</h1>
           <div class="cornerDisplay">
             <p class="roundsDisplay">0/0</p>
             <p class="totalTimeDisplay">Total: 00:00</p>
           </div>
         </div>
 
-          <progress id="progressBar" value="0" max="100"></progress>
-          
-        </div>
-        <form action="">
+        <progress id="progressBar" value="0" max="100"></progress>
+
+        <form>
           <div class="buttons">
             <div class="control">
               <button class="start btn">Start</button>
@@ -67,7 +66,7 @@
               <input type="number" name="rounds" id="rounds" min="0" max="100000" value="3" />
             </div>
             <div class="prepare">
-              <label for="prepare">Prepare:</label>
+              <label for="prepareSeconds">Prepare:</label>
               <p class="inputBox">
                 <input type="number" name="prepareMinutes" id="prepareMinutes" class="timeInput mins" min="0" value="00" />
                 <span>:</span>
@@ -75,10 +74,8 @@
               </p>
             </div>
             <div class="work">
-              <label for="work">Work:</label>
-              <!-- <div class="inputBox">
-                <input type="number" name="workMinutes" id="workMinutes" min="0" placeholder="00" />
-              </div> -->
+              <label for="work">workSeconds:</label>
+
               <p class="inputBox">
                 <input type="number" name="workMinutes" id="workMinutes" class="timeInput mins" min="0" value="00" /> <span>:</span>
                 <input type="number" name="workSeconds" id="workSeconds" class="timeInput secs" min="0" value="03" />
@@ -86,7 +83,7 @@
               <input type="color" id="workColor" name="workColor" value="#00993B" />
             </div>
             <div class="rest">
-              <label for="rest">Rest:</label>
+              <label for="restSeconds">Rest:</label>
               <p class="inputBox">
                 <input type="number" name="restMinutes" id="restMinutes" class="timeInput mins" min="0" value="00" /> <span>:</span>
                 <input type="number" name="restSeconds" id="restSeconds" class="timeInput secs" min="0" value="02" />

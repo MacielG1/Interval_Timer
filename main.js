@@ -30,6 +30,7 @@ let saveWorkoutBtn = document.querySelector(".saveWorkoutBtn");
 //settings
 let settings = document.querySelector(".settings");
 let settingsBtn = document.querySelector(".gear-button-container");
+let toggles = document.querySelector(".toggles");
 let toggleBackgroundColor = document.querySelector("#colorCheckbox");
 let toggleSkipLastRest = document.querySelector("#skipLastRest");
 // sidebar
@@ -165,12 +166,6 @@ timeInput.forEach((input) => {
       this.value = this.value.slice(1);
     }
   });
-  //
-  // let previousValue = "";
-  // input.addEventListener("focus", function (e) {
-  //   previousValue = e.target.value;
-  //   e.target.value = "";
-  // });
 
   //
   let inputCleared = false;
@@ -203,7 +198,6 @@ timeInput.forEach((input) => {
 });
 let maxValue = 1000000;
 rounds.addEventListener("blur", (event) => {
-  // Get the current value of the input element
   let value = event.target.value;
 
   // If the value is greater than the maximum allowed value, set the value to the maximum allowed value
@@ -251,7 +245,7 @@ startBtn.addEventListener("click", (e) => {
   if (paused) {
     startBtn.textContent = "Start";
     paused = false;
-    // updateTime(workDisplay, restDisplay, prepDisplay, prepTimeinSec, workTimeinSec, restTimeinSec);
+
     intervalId = new Timer(1000, () => {
       updateTime(workDisplay, restDisplay, prepDisplay, prepTimeinSec, workTimeinSec, restTimeinSec);
     });
@@ -294,10 +288,9 @@ saveWorkoutBtn.addEventListener("click", (e) => {
   showSavedWorkouts(true);
   e.target.parentElement.querySelector(".workoutName").value = "";
 });
-const toggles = document.querySelector(".toggles");
+
 const mediaQuery = window.matchMedia("(max-width: 1000px)");
 settingsBtn.addEventListener("click", (e) => {
-  // e.target.parentElement.querySelector(".toggles").classList.toggle("toggle-on");
   toggles.classList.toggle("toggle-on");
   if (mediaQuery.matches) {
     if (document.querySelector("main").classList.contains("move-down")) {
@@ -448,15 +441,12 @@ function pad(time) {
 }
 
 function convertHour_Min_Sec_toSec(str) {
-  // let arr = str.split(":");
-  // let seconds = Number(arr[0] * 60 + +arr[1]);
   let [minute, second] = str.split(":");
 
   minute = parseInt(minute, 10);
   second = parseInt(second, 10);
   let totalSeconds = minute * 60 + second;
   return totalSeconds;
-  // return seconds;
 }
 
 function convertSecondsToMinAndSec(seconds) {
