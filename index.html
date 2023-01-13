@@ -63,22 +63,15 @@
           <div class="options">
             <div class="rounds">
               <label for="rounds">Rounds:</label>
-              <input type="number" name="rounds" id="rounds" min="0" max="100000" value="3" />
+              <input type="number" name="rounds" id="rounds" min="0" max="100000" value="10" />
             </div>
-            <div class="prepare">
-              <label for="prepareSeconds">Prepare:</label>
-              <p class="inputBox">
-                <input type="number" name="prepareMinutes" id="prepareMinutes" class="timeInput mins" min="0" value="00" />
-                <span>:</span>
-                <input type="number" name="prepareSeconds" id="prepareSeconds" class="timeInput secs" min="0" value="02" />
-              </p>
-            </div>
+
             <div class="work">
               <label for="workSeconds">Work:</label>
 
               <p class="inputBox">
                 <input type="number" name="workMinutes" id="workMinutes" class="timeInput mins" min="0" value="00" /> <span>:</span>
-                <input type="number" name="workSeconds" id="workSeconds" class="timeInput secs" min="0" value="03" />
+                <input type="number" name="workSeconds" id="workSeconds" class="timeInput secs" min="0" value="30" />
               </p>
               <input type="color" id="workColor" name="workColor" value="#00993B" />
             </div>
@@ -86,9 +79,17 @@
               <label for="restSeconds">Rest:</label>
               <p class="inputBox">
                 <input type="number" name="restMinutes" id="restMinutes" class="timeInput mins" min="0" value="00" /> <span>:</span>
-                <input type="number" name="restSeconds" id="restSeconds" class="timeInput secs" min="0" value="02" />
+                <input type="number" name="restSeconds" id="restSeconds" class="timeInput secs" min="0" value="30" />
               </p>
               <input type="color" id="restColor" name="restColor" value="#DB0000" />
+            </div>
+            <div class="prepare">
+              <label for="prepareSeconds">Prepare:</label>
+              <p class="inputBox">
+                <input type="number" name="prepareMinutes" id="prepareMinutes" class="timeInput mins" min="0" value="00" />
+                <span>:</span>
+                <input type="number" name="prepareSeconds" id="prepareSeconds" class="timeInput secs" min="0" value="05" />
+              </p>
             </div>
           </div>
 
