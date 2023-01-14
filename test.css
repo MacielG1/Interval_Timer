@@ -95,7 +95,7 @@ main {
   margin-top: 3em;
   display: flex;
   flex-direction: column;
-  position: relative;
+
   gap: 0.1em;
 }
 .display {
@@ -113,21 +113,19 @@ main {
 .cornerDisplay {
   width: 6.5em;
   margin-top: 0.3em;
-  padding-top: 0.25em;
-  padding-right: 0.25em;
   margin-bottom: 0.2em;
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 1.5vw;
+  left: 42.8em;
+  font-size: 1.4vw;
   text-align: center;
   color: var(--title-color);
   gap: 0.2em;
 }
 .roundsDisplay {
   transform: scale(2);
+  margin-top: 0.5em;
 }
 
 .options {
@@ -408,7 +406,7 @@ input:checked[type="checkbox"]::after {
 }
 .move-down {
   transition: transform 0.75s;
-  transform: translateY(7em);
+  transform: translateY(5.5em);
 }
 .move-up {
   transition: transform 0.75s;
@@ -546,10 +544,10 @@ aside .sidebar {
     font-size: 10vw;
     margin-top: 0.4em;
   }
-  /* .cornerDisplay {
+  .cornerDisplay {
     left: 45em;
     font-size: 1.5vw;
-  } */
+  }
 
   .container {
     width: 50%;
@@ -614,6 +612,8 @@ aside .sidebar {
     margin-top: 0.6em;
   }
   .cornerDisplay {
+    margin-top: 0.8em;
+    left: 32.5em;
     font-size: 2vw;
   }
 
@@ -643,14 +643,16 @@ aside .sidebar {
   .container {
     margin-top: 0.8em;
   }
-  .timer {
-    margin-top: 0.6em;
-  }
   aside .sidebar {
     margin-top: 0.8em;
   }
   .timer {
     font-size: 12vw;
+    margin-top: 0.85em;
+  }
+  .cornerDisplay {
+    left: 20em;
+    font-size: 3vw;
   }
 
   .settings {
@@ -680,7 +682,7 @@ aside .sidebar {
   .container {
     width: 68vw;
 
-    margin-bottom: 0.2em;
+    margin-bottom: 0.5em;
   }
 
   .workout {
@@ -700,9 +702,6 @@ aside .sidebar {
   .buttons button {
     width: 17vw;
   }
-  .cornerDisplay {
-    font-size: 2.9vw;
-  }
 }
 
 @media screen and (max-width: 500px) {
@@ -717,11 +716,13 @@ aside .sidebar {
     width: 20vw;
   }
   .timer {
-    margin-top: 0.5em;
+    margin-top: 20%;
     font-size: 4em;
   }
   .cornerDisplay {
-    font-size: 4.2vw;
+    margin-top: 0.8em;
+    left: 7.8em;
+    font-size: 4.5vw;
   }
   .options label {
     margin-left: 0.1em;
@@ -756,12 +757,19 @@ aside .sidebar {
   .settings {
     position: fixed;
   }
-
+  .cornerDisplay {
+    font-size: 1.4em;
+    left: 27.2em;
+    margin-top: 0.2em;
+  }
   .timer {
     margin-top: 0.42em;
   }
 }
 @media screen and (max-height: 600px) and (orientation: landscape) and (max-width: 1000px) {
+  .container {
+    background-color: #353836;
+  }
   .options label {
     font-size: 1rem;
   }
@@ -772,12 +780,10 @@ aside .sidebar {
     height: 3vh;
   }
   .timer {
-    margin-top: 0.5em;
-    line-height: 1;
+    font-size: 5rem;
+    position: relative;
   }
-}
-@media screen and (max-height: 600px) and (orientation: landscape) and (max-width: 1000px) {
-  .timer {
-    font-size: 15vh;
+  .cornerDisplay {
+    position: absolute;
   }
 }
