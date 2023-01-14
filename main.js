@@ -55,9 +55,9 @@ if (skipLastRest) {
 //
 let WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
 if (WorkoutsSaved) {
-  showSavedWorkouts();
+  loadHTML();
 }
-function showSavedWorkouts(transition) {
+function loadHTML() {
   WorkoutsSaved.forEach((workout, index) => {
     let backupWorkoutName = `Workout ${index + 1}`;
     let html = `
@@ -72,45 +72,47 @@ function showSavedWorkouts(transition) {
     <p><span class="colorSaved" style="background-color : ${workout.restColorDisplay}"></span>Rest: ${workout.restDisplay}</p>
   </div>
   <div class="startWorkout">
-    <button>Load</button>
+    <button class="loadBtn">Load</button>
   </div>
   </div>
   `;
     sidebar.insertAdjacentHTML("beforeend", html);
   });
-  deleteWorkoutBtn = document.querySelectorAll(".sidebar .deleteBtn");
-  deleteWorkoutBtn.forEach((deleletbtn) => {
-    deleletbtn.addEventListener("click", (event) => {
-      let index = event.target.parentElement.dataset.index;
-      WorkoutsSaved.splice(index, 1);
-      localStorage.setItem("workouts", JSON.stringify(WorkoutsSaved));
-      event.target.parentElement.classList.add("fade-out");
-      setTimeout(() => {
-        event.target.parentElement.remove();
-      }, 300); // change also the css transition using fade-out
-    });
-  });
-  loadWorkoutBtn = document.querySelectorAll(".sidebar .startWorkout");
-  loadWorkoutBtn.forEach((startbtn) => {
-    startbtn.addEventListener("click", (event) => {
-      let index = event.target.parentElement.parentElement.dataset.index;
-      let workout = WorkoutsSaved[index];
-
-      rounds.value = workout.roundsDisplay;
-      prepareMin.value = workout.prepDisplay.split(":")[0];
-      prepareSec.value = workout.prepDisplay.split(":")[1];
-      workMin.value = workout.workDisplay.split(":")[0];
-      workSec.value = workout.workDisplay.split(":")[1];
-      restMin.value = workout.restDisplay.split(":")[0];
-      restSec.value = workout.restDisplay.split(":")[1];
-
-      workColor.value = workout.workColorDisplay;
-      restColor.value = workout.restColorDisplay;
-    });
-  });
   workoutSavedContainer = document.querySelectorAll(".workout");
 }
-//
+
+// deleteBtn Listener
+sidebar.addEventListener("click", (e) => {
+  if (e.target.matches(".deleteBtn")) {
+    let index = e.target.parentElement.dataset.index;
+    WorkoutsSaved.splice(index, 1);
+    localStorage.setItem("workouts", JSON.stringify(WorkoutsSaved));
+    // e.target.parentElement.classList.add("fade-out");
+    e.target.parentElement.remove();
+
+    // update index of remaining items in array
+    workoutSavedContainer = document.querySelectorAll(".workout");
+    workoutSavedContainer.forEach((workout, i) => {
+      workout.dataset.index = i;
+    });
+  } else if (e.target.matches(".loadBtn")) {
+    let index = event.target.parentElement.parentElement.dataset.index;
+    let workout = WorkoutsSaved[index];
+
+    rounds.value = workout.roundsDisplay;
+    prepareMin.value = workout.prepDisplay.split(":")[0];
+    prepareSec.value = workout.prepDisplay.split(":")[1];
+    workMin.value = workout.workDisplay.split(":")[0];
+    workSec.value = workout.workDisplay.split(":")[1];
+    restMin.value = workout.restDisplay.split(":")[0];
+    restSec.value = workout.restDisplay.split(":")[1];
+
+    workColor.value = workout.workColorDisplay;
+    restColor.value = workout.restColorDisplay;
+  }
+});
+// loadBtn Listener
+
 class Timer {
   static interval;
   static expected;
@@ -283,7 +285,8 @@ saveWorkoutBtn.addEventListener("click", (e) => {
   WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
 
   sidebar.innerHTML = "";
-  showSavedWorkouts(true);
+  loadHTML();
+  //resets name workout name
   e.target.parentElement.querySelector(".workoutName").value = "";
 });
 
