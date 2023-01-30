@@ -110,12 +110,16 @@ main {
   color: var(--title-color);
   margin-top: 0.32em;
 }
+.timerFinishedMSG {
+  font-size: 5vw !important;
+}
 .cornerDisplay {
   width: 6.5em;
   margin-top: 0.3em;
   padding-top: 0.25em;
   padding-right: 0.25em;
   margin-bottom: 0.2em;
+  margin-right: 0.2em;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -248,7 +252,7 @@ button:hover:not(.deleteBtn) {
   align-items: center;
 }
 .buttons button {
-  width: 5em;
+  min-width: 5em;
   border: 2px solid black;
   border-radius: 0.75em;
   text-align: center;
@@ -296,15 +300,33 @@ button:hover:not(.deleteBtn) {
   cursor: pointer;
 }
 /* PROGRESS BAR*/
+.centerMenu {
+  text-align: center; /* center the elements horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
 progress {
-  margin: 0 auto;
   min-height: 2em;
   width: 62%;
   height: 2.5em;
   border-radius: 0.3em;
   background-color: #000000;
+  position: relative;
 }
-
+.centerMenu button {
+  background-color: #000000;
+  color: #0063e6;
+  font-size: 2.5em;
+  text-align: center; /* center the arrow icon horizontally */
+  transition: transform 0.7s;
+}
+.centerMenu button:hover {
+  transform: scale(1.25);
+  cursor: pointer;
+}
 #progressBar::-webkit-progress-value {
   background-color: var(--progressBar-color);
 }
@@ -430,6 +452,7 @@ aside .sidebar {
 }
 
 .deleteBtn {
+  margin: auto;
   float: right;
   background-color: red;
   min-width: 0.4em;
@@ -596,7 +619,6 @@ aside .sidebar {
     transform: scale(1.8);
   }
   .workout .title {
-    white-space: nowrap;
     font-size: 1.2rem;
   }
   .workout .data p:nth-of-type(1) {
@@ -618,7 +640,12 @@ aside .sidebar {
   }
 
   .settings {
-    margin-top: 0.3em;
+    margin-top: 0;
+    padding-top: 0.3em;
+  }
+  .workout .title {
+    white-space: wrap;
+    font-size: 1.2rem;
   }
 
   .gear-button {
@@ -678,7 +705,7 @@ aside .sidebar {
     flex-direction: column-reverse;
   }
   .container {
-    width: 68vw;
+    width: 70vw;
 
     margin-bottom: 0.2em;
   }
@@ -704,23 +731,36 @@ aside .sidebar {
     font-size: 2.9vw;
   }
 }
-
+@media screen and (max-width: 600px) {
+  .container {
+    width: 80vw;
+  }
+  .buttons .control button {
+    font-size: 1.2em;
+    min-width: 0.4em;
+    width: fit-content;
+  }
+  .workoutName {
+    width: 78%;
+    margin-left: 0.5em;
+  }
+  .saveWorkoutBtn {
+    margin-right: 0.5em;
+  }
+}
 @media screen and (max-width: 500px) {
   .container {
     width: 90%;
     border-width: 1px;
   }
-  .buttons .control button {
-    font-size: 1.35em;
-  }
-  .buttons button {
-    width: 20vw;
-  }
+
   .timer {
-    margin-top: 0.5em;
+    margin-top: 0.8em;
+    margin-right: 0.2em;
     font-size: 4em;
   }
   .cornerDisplay {
+    margin-right: 0.2em;
     font-size: 4.2vw;
   }
   .options label {
@@ -772,7 +812,6 @@ aside .sidebar {
     height: 3vh;
   }
   .timer {
-    margin-top: 0.5em;
     line-height: 1;
   }
 }

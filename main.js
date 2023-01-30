@@ -3,8 +3,11 @@ let inputs = document.querySelectorAll(".options input");
 let timeDisplay = document.querySelector(".display .timer");
 let roundsDisplay = document.querySelector(".display .roundsDisplay");
 let totalTimeDisplay = document.querySelector(".display .totalTimeDisplay");
+
 // progress bar
+let previousBtn = document.querySelector("#previousBtn");
 let progressBar = document.querySelector("#progressBar");
+let nextBtn = document.querySelector("#nextBtn");
 // main container
 let container = document.querySelector(".container");
 // rounds input
@@ -64,6 +67,8 @@ function loadHTML() {
   <div class="workout" data-index=${index}>
   <button id="delete-btn" class="deleteBtn"></button>
   <p class="title">${workout.workoutName || backupWorkoutName}</p>
+
+  
 
   <div class="data">
     <p>Rounds : ${workout.roundsDisplay}</p>
@@ -149,6 +154,7 @@ class Timer {
     }
     if (!this.stopped) {
       this.workFunc();
+
       this.expected += this.interval;
       this.timeout = setTimeout(this.step.bind(this), Math.max(0, this.interval - drift));
     }
@@ -235,6 +241,7 @@ startBtn.addEventListener("click", (e) => {
   restDisplay = `${restMin.value}:${restSec.value}`;
   prepTimeinSec = convertHour_Min_Sec_toSec(prepDisplay);
   workTimeinSec = convertHour_Min_Sec_toSec(workDisplay);
+
   restTimeinSec = convertHour_Min_Sec_toSec(restDisplay);
   if (skipLastRest) {
     totalWorkoutTime = pad(convertSecondsToMinAndSec(workTimeinSec * rounds.value + restTimeinSec * (rounds.value - 1)));
@@ -332,12 +339,17 @@ let sec = "0" + 0;
 let min = "0" + 0;
 let time = `00:00`;
 let currentRound = 1;
-let currentTime;
+let currentTime = "00:00";
 let counter = 0;
+let workTimeUsed;
+let restTimeUsed;
+
 function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, restTimeinSec) {
+  workTimeUsed = workTime = pad(workTime);
+  restTimeUsed = restTime = pad(restTime);
+  prepTime = pad(prepTime);
   if (currentRound <= rounds.value) {
     sec++;
-
     sec = sec < 10 ? "0" + sec : sec;
 
     if (sec == 60) {
@@ -347,23 +359,28 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
     time = `${min}:${sec}`;
 
+    //next
+    // if (nextBtnClicked) {
+    //   sec = "0" + 0;
+    //   nextBtnClicked = false;
+    // }
+    // previous
+    //
     if (whichInterval == "prepare") {
       progressBar.style.setProperty("--progressBar-color", `#21365c`);
       progressBar.max = prepTimeinSec;
       progressBar.value = sec;
+      if (workoutSavedContainer) {
+        workoutSavedContainer.forEach((workout) => {
+          if (isToggled) {
+            workout.style.border = "2px solid var(--title-color)";
+          }
+        });
+      }
     }
 
     if (whichInterval == "prepare" && time > prepTime) {
-      whichInterval = "work";
-      toggledBackgroundColor("work");
-      container.style.borderColor = `${workColor.value}`;
-      sec = "0" + 0;
-      min = "0" + 0;
-      time = `00:00`;
-
-      progressBar.max = workTimeinSec;
-      progressBar.value = sec;
-      progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
+      prepareToWorkMode();
     }
     if (whichInterval == "work") {
       progressBar.value = sec;
@@ -381,61 +398,172 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
 
     if (whichInterval == "work" && time > workTime) {
-      whichInterval = "rest";
-      toggledBackgroundColor("rest");
-      container.style.borderColor = `${restColor.value}`;
-      sec = "0" + 0;
-      min = "0" + 0;
-      time = `00:00`;
-      progressBar.max = restTimeinSec;
-      progressBar.value = sec;
-      progressBar.style.setProperty("--progressBar-color", `${restColor.value}`);
-      if (currentRound + 1 > rounds.value) {
-        if (skipLastRest) {
-          resetTimer();
-          resetWhenToggled();
-        }
-      }
+      workToRestMode();
     }
     if (whichInterval == "rest" && time > restTime) {
-      currentRound++;
-      roundsDisplay.textContent = `${currentRound}/${rounds.value}`;
-      toggledBackgroundColor("work");
-      whichInterval = "work";
-      container.style.borderColor = `${workColor.value}`;
-      sec = "0" + 0;
-      min = "0" + 0;
-      time = `00:00`;
-      progressBar.max = workTimeinSec;
-      progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
-
-      if (currentRound > rounds.value) {
-        progressBar.value = 0;
-        container.style.borderColor = "rgb(216, 216, 216)";
-        roundsDisplay.textContent = `0/0`;
-        if (isToggled) {
-          document.body.style.backgroundColor = "black";
-          workout.style.border = "none";
-        }
-        container.style.borderWidth = "0.2em";
-        sec = "0" + 0;
-        min = "0" + 0;
-        time = `00:00`;
-      } else {
-        progressBar.value = sec;
-      }
+      restToWorkMode();
     }
+
     if (time !== `00:00` && (whichInterval == "work" || whichInterval == "rest") && currentRound <= rounds.value) {
       counter++;
+      currentTime = convertSecondsToMinAndSec(counter);
+      totalTimeDisplay.textContent = `${currentTime}/${totalWorkoutTime}`;
     }
-    currentTime = convertSecondsToMinAndSec(counter);
-    totalTimeDisplay.textContent = `${currentTime}/${totalWorkoutTime}`;
+
     timeDisplay.textContent = `${min}:${sec}`;
   } else {
     resetTimer();
     resetWhenToggled();
   }
 }
+
+let nextBtnClicked = false;
+
+nextBtn.addEventListener("click", function () {
+  nextBtnClicked = true;
+  if (!paused) {
+    if (currentRound <= rounds.value) {
+      if (whichInterval === "work") {
+        counter = convertHour_Min_Sec_toSec(workTimeUsed) * currentRound + convertHour_Min_Sec_toSec(restTimeUsed) * (currentRound - 1);
+
+        workToRestMode();
+      } else if (whichInterval === "rest") {
+        counter = convertHour_Min_Sec_toSec(restTimeUsed) * currentRound + convertHour_Min_Sec_toSec(workTimeUsed) * currentRound;
+        restToWorkMode();
+      } else if (whichInterval === "prepare") {
+        prepareToWorkMode();
+      }
+    } else {
+      resetTimer();
+    }
+  }
+});
+
+previousBtn.addEventListener("click", function () {
+  if (!paused) {
+    if (whichInterval === "prepare") {
+      sec = "0" + 0;
+      timeDisplay.textContent = "00:00";
+    }
+    if (whichInterval === "work" && currentRound == 1) {
+      whichInterval = "prepare";
+      document.body.style.backgroundColor = "black";
+      sec = "0" + 0;
+      min = "0" + 0;
+      time = `00:00`;
+      mins = 0;
+      secs = 0;
+      currentRound = 1;
+      roundsDisplay.textContent = `0/0`;
+      timeDisplay.textContent = "00:00";
+      container.style.borderWidth = "0.2em";
+      container.style.borderColor = "rgb(216, 216, 216)";
+      counter = 0;
+      currentTime = convertSecondsToMinAndSec(counter);
+      totalTimeDisplay.textContent = `${currentTime}/${totalWorkoutTime}`;
+    }
+    if (currentRound > 1 || (whichInterval === "rest" && currentRound == 1)) {
+      if (whichInterval === "work") {
+        currentRound--;
+        roundsDisplay.textContent = `${currentRound}/${rounds.value}`;
+        workToRestMode();
+
+        counter = convertHour_Min_Sec_toSec(workTimeUsed) * (currentRound - 1) + convertHour_Min_Sec_toSec(restTimeUsed) * currentRound;
+        currentTime = convertSecondsToMinAndSec(counter);
+        totalTimeDisplay.textContent = `${currentTime}/${totalWorkoutTime}`;
+      } else if (whichInterval === "rest") {
+        currentRound--;
+        restToWorkMode();
+        counter = convertHour_Min_Sec_toSec(workTimeUsed) * (currentRound - 1) + convertHour_Min_Sec_toSec(restTimeUsed) * (currentRound - 1);
+
+        currentTime = convertSecondsToMinAndSec(counter);
+        totalTimeDisplay.textContent = `${currentTime}/${totalWorkoutTime}`;
+      } else if (whichInterval === "prepare") {
+        sec = "0" + 0;
+        currentRound--;
+        timeDisplay.textContent = "00:00";
+      }
+    }
+  }
+});
+
+function prepareToWorkMode() {
+  whichInterval = "work";
+  toggledBackgroundColor("work");
+  if (!isToggled) {
+    container.style.borderColor = `${workColor.value}`;
+  } else {
+    container.style.borderColor = "black";
+  }
+
+  sec = "0" + 0;
+  min = "0" + 0;
+  time = `00:00`;
+
+  progressBar.max = workTimeinSec;
+  progressBar.value = sec;
+  progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
+}
+function workToRestMode() {
+  whichInterval = "rest";
+  timeDisplay.textContent = `00:00`;
+  toggledBackgroundColor("rest");
+  if (!isToggled) {
+    container.style.borderColor = `${restColor.value}`;
+  } else {
+    container.style.borderColor = "black";
+  }
+
+  sec = "0" + 0;
+  min = "0" + 0;
+  time = `00:00`;
+  progressBar.max = restTimeinSec;
+  progressBar.value = sec;
+  progressBar.style.setProperty("--progressBar-color", `${restColor.value}`);
+  if (currentRound + 1 > rounds.value) {
+    if (skipLastRest) {
+      resetTimer();
+      resetWhenToggled();
+
+      timeDisplay.textContent = "End!";
+    }
+  }
+}
+
+function restToWorkMode() {
+  currentRound++;
+  timeDisplay.textContent = `00:00`;
+  roundsDisplay.textContent = `${currentRound}/${rounds.value}`;
+  toggledBackgroundColor("work");
+  whichInterval = "work";
+  if (!isToggled) {
+    container.style.borderColor = `${workColor.value}`;
+  } else {
+    container.style.borderColor = "black";
+  }
+  sec = "0" + 0;
+  min = "0" + 0;
+  time = `00:00`;
+  progressBar.max = workTimeinSec;
+  progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
+
+  if (currentRound > rounds.value) {
+    progressBar.value = 0;
+    container.style.borderColor = "rgb(216, 216, 216)";
+    roundsDisplay.textContent = `0/0`;
+    if (isToggled) {
+      document.body.style.backgroundColor = "black";
+      workout.style.border = "none";
+    }
+    container.style.borderWidth = "0.2em";
+    sec = "0" + 0;
+    min = "0" + 0;
+    time = `00:00`;
+  } else {
+    progressBar.value = sec;
+  }
+}
+
 function pad(time) {
   if (time.includes(":")) {
     // Time string is in the format "MM:SS"
@@ -488,7 +616,7 @@ function resetTimer() {
   currentRound = 1;
   roundsDisplay.textContent = `0/0`;
   intervalWhenPaused = "prepare";
-
+  currentTime = "00:00";
   timeDisplay.textContent = "00:00";
   container.style.borderWidth = "0.2em";
   container.style.borderColor = "rgb(216, 216, 216)";
