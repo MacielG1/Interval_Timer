@@ -316,17 +316,26 @@ progress {
   background-color: #000000;
   position: relative;
 }
+
 .centerMenu button {
+  background-color: transparent;
+  border: none;
+}
+
+.centerMenu button span {
+  display: inline-block;
   background-color: #000000;
   color: #0063e6;
   font-size: 2.5em;
-  text-align: center; /* center the arrow icon horizontally */
+  text-align: center;
   transition: transform 0.7s;
 }
-.centerMenu button:hover {
+
+.centerMenu button span:hover {
   transform: scale(1.25);
   cursor: pointer;
 }
+
 #progressBar::-webkit-progress-value {
   background-color: var(--progressBar-color);
 }
@@ -741,7 +750,7 @@ aside .sidebar {
     width: fit-content;
   }
   .workoutName {
-    width: 78%;
+    width: 70%;
     margin-left: 0.5em;
   }
   .saveWorkoutBtn {
@@ -755,7 +764,7 @@ aside .sidebar {
   }
 
   .timer {
-    margin-top: 0.8em;
+    margin-top: 0.5em;
     margin-right: 0.2em;
     font-size: 4em;
   }
@@ -763,9 +772,14 @@ aside .sidebar {
     margin-right: 0.2em;
     font-size: 4.2vw;
   }
+  .options {
+    gap: 0em !important;
+  }
   .options label {
     margin-left: 0.1em;
-    font-size: 0.9rem;
+  }
+  .workoutName {
+    width: 65%;
   }
 }
 @media screen and (max-height: 780px) {
@@ -780,16 +794,22 @@ aside .sidebar {
     margin-top: 1em;
   }
   .options {
-    gap: 0.3em;
+    gap: 0.35em;
   }
   .buttons {
-    margin-top: 3%;
+    margin-top: 2%;
   }
   .buttons .control button {
     font-size: 1.5rem;
   }
   .timer {
+    line-height: 1.2;
     font-size: 7rem;
+  }
+}
+@media screen and (max-height: 680px) and (orientation: landscape) and (min-width: 1300px) {
+  .container {
+    width: 45%;
   }
 }
 @media screen and (max-height: 680px) and (orientation: landscape) and (max-width: 1000px) {
@@ -798,10 +818,10 @@ aside .sidebar {
   }
 
   .timer {
-    margin-top: 0.42em;
+    margin-top: 0.43em;
   }
 }
-@media screen and (max-height: 600px) and (orientation: landscape) and (max-width: 1000px) {
+@media screen and (max-height: 620px) and (orientation: landscape) and (max-width: 1000px) {
   .options label {
     font-size: 1rem;
   }
@@ -812,11 +832,7 @@ aside .sidebar {
     height: 3vh;
   }
   .timer {
-    line-height: 1;
-  }
-}
-@media screen and (max-height: 600px) and (orientation: landscape) and (max-width: 1000px) {
-  .timer {
+    line-height: 1.5;
     font-size: 15vh;
   }
 }
