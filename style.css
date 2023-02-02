@@ -102,6 +102,24 @@ main {
   display: flex;
   justify-content: center;
 }
+
+.resetDiv {
+  margin: 0 1.4em 1em 0;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.resetDiv button {
+  border: 2px solid black;
+  padding: 0.2em 0.5em;
+  text-align: center;
+  font-size: 1.2rem;
+  background-color: rgb(163, 163, 163);
+  color: black;
+  border-radius: 0.9em;
+  cursor: pointer;
+}
 .timer {
   font-weight: normal;
   font-size: 9vw;
@@ -266,10 +284,9 @@ button:hover:not(.deleteBtn) {
 .buttons .stop {
   background-color: #ad002b;
 }
-.buttons .reset {
-  background-color: rgb(226, 226, 226);
+.buttons .restart {
+  background-color: var(--saved-border-color);
 }
-
 .buttons .control button {
   font-size: 2rem;
   margin: 0.2em;
@@ -551,6 +568,10 @@ aside .sidebar {
 }
 
 @media screen and (max-width: 1366px) {
+  .toggleLabel {
+    display: flex;
+    flex-direction: column;
+  }
   main {
     display: flex;
     gap: 4em;
@@ -697,7 +718,12 @@ aside .sidebar {
   }
 
   .toggles {
-    flex-direction: column;
+    flex-direction: row;
+  }
+  .toggles div {
+    margin: 0.4em;
+    border: 1px solid rgb(177, 177, 177);
+    border-radius: 1em;
   }
 
   .checkBtn {
@@ -741,6 +767,9 @@ aside .sidebar {
   }
 }
 @media screen and (max-width: 600px) {
+  main {
+    gap: 2.2em;
+  }
   .container {
     width: 80vw;
   }
@@ -807,6 +836,7 @@ aside .sidebar {
     font-size: 7rem;
   }
 }
+
 @media screen and (max-height: 680px) and (orientation: landscape) and (min-width: 1300px) {
   .container {
     width: 45%;

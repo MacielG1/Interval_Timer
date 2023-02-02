@@ -33,6 +33,10 @@
           <label for="skipLastRest"><span>Skip Last</span> <span>Rest:</span> </label>
           <input id="skipLastRest" checked type="checkbox" />
         </div>
+        <div class="checkBtn">
+          <label class="toggleLabel" for="autoPlaysOnRestart"><span>Start Timer</span> <span>on Restart:</span> </label>
+          <input id="autoPlaysOnRestart" checked type="checkbox" />
+        </div>
       </div>
     </div>
     <main>
@@ -61,7 +65,8 @@
             <div class="control">
               <button class="start btn">Start</button>
               <button class="stop">Stop</button>
-              <button class="reset" type="reset">Reset</button>
+
+              <button class="restart">Restart</button>
             </div>
           </div>
           <div class="options">
@@ -100,6 +105,9 @@
           <div class="save">
             <input type="text" class="workoutName" id="workout-name" maxlength="15" placeholder="Workout Name" />
             <button class="saveWorkoutBtn">Save</button>
+            <div class="resetDiv">
+              <button class="reset" type="reset">Reset</button>
+            </div>
           </div>
         </form>
       </section>

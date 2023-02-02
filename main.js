@@ -26,9 +26,10 @@ let restColor = document.querySelector("#restColor");
 // timerInputs
 let timeInput = document.querySelectorAll(".timeInput");
 //buttons inputs
-let startBtn = document.querySelector(".buttons .start");
-let pauseBtn = document.querySelector(".buttons .stop");
-let resetBtn = document.querySelector(".buttons .reset");
+let startBtn = document.querySelector(".start");
+let pauseBtn = document.querySelector(".stop");
+let resetBtn = document.querySelector(".reset");
+let restartBtn = document.querySelector(".restart");
 let saveWorkoutBtn = document.querySelector(".saveWorkoutBtn");
 //settings
 let settings = document.querySelector(".settings");
@@ -36,6 +37,7 @@ let settingsBtn = document.querySelector(".gear-button-container");
 let toggles = document.querySelector(".toggles");
 let toggleBackgroundColor = document.querySelector("#colorCheckbox");
 let toggleSkipLastRest = document.querySelector("#skipLastRest");
+let toggleAutoRestart = document.querySelector("#autoPlaysOnRestart");
 // sidebar
 let sidebar = document.querySelector(".sidebar");
 let loadWorkoutBtn;
@@ -45,6 +47,7 @@ let workoutSavedContainer;
 // check for settings on local storage
 let isToggled = JSON.parse(localStorage.getItem("toggleBgColor")) || true;
 let skipLastRest = JSON.parse(localStorage.getItem("skipLastRest") || true);
+let autoPlaysOnRestart = JSON.parse(localStorage.getItem("autoRestart") || false);
 if (isToggled) {
   toggleBackgroundColor.checked = true;
 } else {
@@ -54,6 +57,11 @@ if (skipLastRest) {
   toggleSkipLastRest.checked = true;
 } else {
   toggleSkipLastRest.checked = false;
+}
+if (autoPlaysOnRestart) {
+  toggleAutoRestart.checked = true;
+} else {
+  toggleAutoRestart.checked = false;
 }
 //
 let WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
@@ -272,6 +280,17 @@ resetBtn.addEventListener("click", () => {
   resetTimer();
   resetWhenToggled();
 });
+restartBtn.addEventListener("click", (e) => {
+  if (!paused) {
+    e.preventDefault();
+    resetTimer();
+    resetWhenToggled();
+    if (autoPlaysOnRestart) {
+      startBtn.click();
+    }
+  }
+});
+
 let workoutsArr = [];
 saveWorkoutBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -330,6 +349,15 @@ toggleSkipLastRest.addEventListener("change", (e) => {
   } else {
     skipLastRest = true;
     localStorage.setItem("skipLastRest", skipLastRest);
+  }
+});
+toggleAutoRestart.addEventListener("change", (e) => {
+  if (!e.target.checked) {
+    autoRestart = false;
+    localStorage.setItem("autoRestart", autoRestart);
+  } else {
+    autoRestart = true;
+    localStorage.setItem("autoRestart", autoRestart);
   }
 });
 
