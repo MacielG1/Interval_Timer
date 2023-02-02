@@ -489,6 +489,14 @@ previousBtn.addEventListener("click", function () {
       counter = 0;
       currentTime = convertSecondsToMinAndSec(counter);
       totalTimeDisplay.textContent = `${currentTime}/${totalWorkoutTime}`;
+      progressBar.style.setProperty("--progressBar-color", `#21365c`);
+      if (workoutSavedContainer) {
+        workoutSavedContainer.forEach((workout) => {
+          if (isToggled) {
+            workout.style.border = "2px solid var(--title-color)";
+          }
+        });
+      }
     }
     if (currentRound > 1 || (whichInterval === "rest" && currentRound == 1)) {
       if (whichInterval === "work") {
