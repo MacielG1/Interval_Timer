@@ -697,6 +697,13 @@ aside .sidebar {
   }
 }
 @media screen and (max-width: 1000px) {
+  .resetDiv {
+    margin: 1.4em 0 0 1em;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .container {
     margin-top: 0.8em;
   }
