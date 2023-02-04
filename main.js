@@ -281,8 +281,8 @@ resetBtn.addEventListener("click", () => {
   resetWhenToggled();
 });
 restartBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   if (!paused) {
-    e.preventDefault();
     resetTimer();
     resetWhenToggled();
     if (autoPlaysOnRestart) {
@@ -505,17 +505,21 @@ function previousIntervalMode() {
   }
 }
 document.addEventListener("keyup", function (event) {
+  if (document.activeElement.tagName === "INPUT") return;
   if (event.code === "ArrowRight") {
     nextIntervalMode();
   }
 });
 document.addEventListener("keyup", function (event) {
+  if (document.activeElement.tagName === "INPUT") return;
   if (event.code === "ArrowLeft") {
     previousIntervalMode();
   }
 });
+let isSpaceClicked = true;
 
 document.addEventListener("keyup", function (event) {
+  if (document.activeElement.tagName === "INPUT") return;
   if (event.code === "Space") {
     if (isSpaceClicked) {
       startBtn.click();
@@ -525,9 +529,18 @@ document.addEventListener("keyup", function (event) {
     isSpaceClicked = !isSpaceClicked;
   }
 });
+
 document.addEventListener("keyup", function (event) {
+  event.preventDefault();
+  if (document.activeElement.tagName === "INPUT") return;
   if (event.code === "KeyR") {
     restartBtn.click();
+  }
+});
+document.addEventListener("keyup", function (event) {
+  event.preventDefault();
+  if (event.code === "Backspace") {
+    resetBtn.click();
   }
 });
 

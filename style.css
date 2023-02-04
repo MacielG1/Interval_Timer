@@ -104,20 +104,20 @@ main {
 }
 
 .resetDiv {
-  margin: 0 1.4em 1em 0;
+  margin: 1em 0 0 1.1em;
 
   position: absolute;
-  right: 0;
-  bottom: 0;
+  top: 0;
+  left: 0;
 }
 .resetDiv button {
   border: 2px solid black;
   padding: 0.2em 0.5em;
   text-align: center;
   font-size: 1.2rem;
-  background-color: rgb(163, 163, 163);
+  background-color: rgb(177, 177, 177);
   color: black;
-  border-radius: 0.9em;
+  border-radius: 1em;
   cursor: pointer;
 }
 .timer {
@@ -697,13 +697,6 @@ aside .sidebar {
   }
 }
 @media screen and (max-width: 1000px) {
-  .resetDiv {
-    margin: 1.4em 0 0 1em;
-
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
   .container {
     margin-top: 0.8em;
   }
