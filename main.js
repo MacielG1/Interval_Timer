@@ -67,7 +67,7 @@ if (autoPlaysOnRestart) {
 let WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
 
 document.querySelector("main").classList.add("main-noWorkouts");
-if (WorkoutsSaved.length) {
+if (WorkoutsSaved && WorkoutsSaved.length) {
   loadHTML();
 }
 
