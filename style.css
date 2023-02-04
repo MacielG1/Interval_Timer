@@ -115,7 +115,7 @@ main {
   padding: 0.2em 0.5em;
   text-align: center;
   font-size: 1.2rem;
-  background-color: rgb(177, 177, 177);
+  background-color: rgb(187, 187, 187);
   color: black;
   border-radius: 1em;
   cursor: pointer;
@@ -306,6 +306,7 @@ button:hover:not(.deleteBtn) {
   display: flex;
   justify-content: center;
   gap: 0.5em;
+  margin-bottom: 0.3em;
 }
 .saveWorkoutBtn {
   border: 2px solid black;
@@ -575,7 +576,14 @@ aside .sidebar {
   }
   main {
     display: flex;
+  }
+  .main-noWorkouts {
+    gap: 0em;
+    transition: gap 0.35s ease-in-out;
+  }
+  .main-hasWorkouts {
     gap: 4em;
+    transition: gap 0.35s ease-in-out;
   }
   .workout .data {
     display: flex;
@@ -722,6 +730,7 @@ aside .sidebar {
     flex-direction: row;
   }
   .toggles div {
+    background-color: #000000;
     margin: 0.4em;
     border: 1px solid rgb(177, 177, 177);
     border-radius: 1em;

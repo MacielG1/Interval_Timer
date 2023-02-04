@@ -65,10 +65,14 @@ if (autoPlaysOnRestart) {
 }
 //
 let WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
-if (WorkoutsSaved) {
+
+document.querySelector("main").classList.add("main-noWorkouts");
+if (WorkoutsSaved.length) {
   loadHTML();
 }
+
 function loadHTML() {
+  document.querySelector("main").classList.add("main-hasWorkouts");
   WorkoutsSaved.forEach((workout, index) => {
     let backupWorkoutName = `Workout ${index + 1}`;
     let html = `
@@ -105,6 +109,10 @@ sidebar.addEventListener("click", (e) => {
 
     // update index of remaining items in array
     workoutSavedContainer = document.querySelectorAll(".workout");
+    if (!workoutSavedContainer.length) {
+      document.querySelector("main").classList.remove("main-hasWorkouts");
+      document.querySelector("main").classList.add("main-noWorkouts");
+    }
     workoutSavedContainer.forEach((workout, i) => {
       workout.dataset.index = i;
     });
