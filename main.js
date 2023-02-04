@@ -445,29 +445,11 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
   }
 }
 
-let nextBtnClicked = false;
+nextBtn.addEventListener("click", nextIntervalMode);
 
-nextBtn.addEventListener("click", function () {
-  nextBtnClicked = true;
-  if (!paused) {
-    if (currentRound <= rounds.value) {
-      if (whichInterval === "work") {
-        counter = convertHour_Min_Sec_toSec(workTimeUsed) * currentRound + convertHour_Min_Sec_toSec(restTimeUsed) * (currentRound - 1);
+previousBtn.addEventListener("click", previousIntervalMode);
 
-        workToRestMode();
-      } else if (whichInterval === "rest") {
-        counter = convertHour_Min_Sec_toSec(restTimeUsed) * currentRound + convertHour_Min_Sec_toSec(workTimeUsed) * currentRound;
-        restToWorkMode();
-      } else if (whichInterval === "prepare") {
-        prepareToWorkMode();
-      }
-    } else {
-      resetTimer();
-    }
-  }
-});
-
-previousBtn.addEventListener("click", function () {
+function previousIntervalMode() {
   if (!paused) {
     if (whichInterval === "prepare") {
       sec = "0" + 0;
@@ -521,8 +503,54 @@ previousBtn.addEventListener("click", function () {
       }
     }
   }
+}
+document.addEventListener("keyup", function (event) {
+  if (event.code === "ArrowRight") {
+    nextIntervalMode();
+  }
+});
+document.addEventListener("keyup", function (event) {
+  if (event.code === "ArrowLeft") {
+    previousIntervalMode();
+  }
 });
 
+document.addEventListener("keyup", function (event) {
+  if (event.code === "Space") {
+    if (isSpaceClicked) {
+      startBtn.click();
+    } else {
+      pauseBtn.click();
+    }
+    isSpaceClicked = !isSpaceClicked;
+  }
+});
+document.addEventListener("keyup", function (event) {
+  if (event.code === "KeyR") {
+    restartBtn.click();
+  }
+});
+
+let nextBtnClicked = false;
+function nextIntervalMode() {
+  nextBtnClicked = true;
+  if (!paused) {
+    if (currentRound <= rounds.value) {
+      if (whichInterval === "work") {
+        counter = convertHour_Min_Sec_toSec(workTimeUsed) * currentRound + convertHour_Min_Sec_toSec(restTimeUsed) * (currentRound - 1);
+
+        workToRestMode();
+      } else if (whichInterval === "rest") {
+        counter = convertHour_Min_Sec_toSec(restTimeUsed) * currentRound + convertHour_Min_Sec_toSec(workTimeUsed) * currentRound;
+        restToWorkMode();
+      } else if (whichInterval === "prepare") {
+        prepareToWorkMode();
+      }
+    } else {
+      resetTimer();
+    }
+  }
+}
 function prepareToWorkMode() {
   whichInterval = "work";
   toggledBackgroundColor("work");
