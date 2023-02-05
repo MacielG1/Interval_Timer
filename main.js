@@ -431,10 +431,11 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
 
     if (whichInterval == "prepare" && time > prepTime) {
+      document.title = `Work: 00:00`;
+      changeFavicon(favicon, workColor.value);
       prepareToWorkMode();
     }
     if (whichInterval == "work") {
-      changeFavicon(favicon, workColor.value);
       document.title = `Work: ${time}`;
       progressBar.value = sec;
       container.style.borderWidth = "0.4em";
@@ -447,15 +448,18 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
       }
     }
     if (whichInterval == "rest") {
-      changeFavicon(favicon, restColor.value);
       document.title = `Rest: ${time}`;
       progressBar.value = sec;
     }
 
     if (whichInterval == "work" && time > workTime) {
+      document.title = `Rest: 00:00`;
+      changeFavicon(favicon, restColor.value);
       workToRestMode();
     }
     if (whichInterval == "rest" && time > restTime) {
+      document.title = `Work: 00:00`;
+      changeFavicon(favicon, workColor.value);
       restToWorkMode();
     }
 
