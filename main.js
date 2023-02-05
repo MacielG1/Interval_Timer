@@ -43,11 +43,12 @@ let sidebar = document.querySelector(".sidebar");
 let loadWorkoutBtn;
 let deleteWorkoutBtn;
 let workoutSavedContainer;
+//
 
 // check for settings on local storage
 let isToggled = JSON.parse(localStorage.getItem("toggleBgColor")) || true;
 let skipLastRest = JSON.parse(localStorage.getItem("skipLastRest") || true);
-let autoPlaysOnRestart = JSON.parse(localStorage.getItem("autoRestart") || false);
+let autoPlaysOnRestart = JSON.parse(localStorage.getItem("autoRestart") || true);
 if (isToggled) {
   toggleBackgroundColor.checked = true;
 } else {
@@ -403,6 +404,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     // previous
     //
     if (whichInterval == "prepare") {
+      document.title = `Prep: ${time}`;
       progressBar.style.setProperty("--progressBar-color", `#21365c`);
       progressBar.max = prepTimeinSec;
       progressBar.value = sec;
@@ -419,6 +421,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
       prepareToWorkMode();
     }
     if (whichInterval == "work") {
+      document.title = `Work: ${time}`;
       progressBar.value = sec;
       container.style.borderWidth = "0.4em";
       if (workoutSavedContainer) {
@@ -430,6 +433,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
       }
     }
     if (whichInterval == "rest") {
+      document.title = `Rest: ${time}`;
       progressBar.value = sec;
     }
 
