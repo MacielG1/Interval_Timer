@@ -43,7 +43,6 @@ let sidebar = document.querySelector(".sidebar");
 let loadWorkoutBtn;
 let deleteWorkoutBtn;
 let workoutSavedContainer;
-//
 
 // check for settings on local storage
 let isToggled = JSON.parse(localStorage.getItem("toggleBgColor")) || true;
@@ -291,12 +290,11 @@ resetBtn.addEventListener("click", () => {
 });
 restartBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  if (!paused) {
-    resetTimer();
-    resetWhenToggled();
-    if (autoPlaysOnRestart) {
-      startBtn.click();
-    }
+
+  resetTimer();
+  resetWhenToggled();
+  if (autoPlaysOnRestart) {
+    startBtn.click();
   }
 });
 
@@ -371,6 +369,20 @@ toggleAutoRestart.addEventListener("change", (e) => {
 });
 
 //
+let favicon = `<svg id="mySVG" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="50" cy="50" r="45" fill="#fff" stroke="#000" stroke-width="5"/>
+<line x1="50" y1="50" x2="50" y2="18" stroke="#000" stroke-width="5"/>
+<line x1="50" y1="50" x2="75" y2="36" stroke="#000" stroke-width="5"/>
+</svg>`;
+function changeFavicon(faviconSVG, fillColor) {
+  let updatedSVG = faviconSVG.replace('fill="#fff"', `fill="${fillColor}"`);
+  let url = "data:image/svg+xml," + encodeURIComponent(updatedSVG);
+  let link = document.querySelector("link[rel*='icon']") || document.createElement("link");
+  link.type = "image/svg+xml";
+  link.rel = "shortcut icon";
+  link.href = url;
+  document.getElementsByTagName("head")[0].appendChild(link);
+}
 
 let sec = "0" + 0;
 let min = "0" + 0;
@@ -404,6 +416,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     // previous
     //
     if (whichInterval == "prepare") {
+      changeFavicon(favicon, `#124197`);
       document.title = `Prep: ${time}`;
       progressBar.style.setProperty("--progressBar-color", `#21365c`);
       progressBar.max = prepTimeinSec;
@@ -421,6 +434,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
       prepareToWorkMode();
     }
     if (whichInterval == "work") {
+      changeFavicon(favicon, workColor.value);
       document.title = `Work: ${time}`;
       progressBar.value = sec;
       container.style.borderWidth = "0.4em";
@@ -433,6 +447,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
       }
     }
     if (whichInterval == "rest") {
+      changeFavicon(favicon, restColor.value);
       document.title = `Rest: ${time}`;
       progressBar.value = sec;
     }
@@ -696,6 +711,8 @@ function resetTimer() {
     intervalId.stop();
     paused = true;
   }
+  changeFavicon(favicon, `#124197`);
+  document.title = `Timer`;
   document.body.style.backgroundColor = "black";
   sec = "0" + 0;
   min = "0" + 0;
