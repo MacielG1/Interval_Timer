@@ -408,13 +408,7 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
     time = `${min}:${sec}`;
 
-    //next
-    // if (nextBtnClicked) {
-    //   sec = "0" + 0;
-    //   nextBtnClicked = false;
-    // }
-    // previous
-    //
+    0;
     if (whichInterval == "prepare") {
       changeFavicon(favicon, `#124197`);
       document.title = `Prep: ${time}`;
@@ -431,8 +425,6 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
 
     if (whichInterval == "prepare" && time > prepTime) {
-      document.title = `Work: 00:00`;
-      changeFavicon(favicon, workColor.value);
       prepareToWorkMode();
     }
     if (whichInterval == "work") {
@@ -453,13 +445,9 @@ function updateTime(workTime, restTime, prepTime, prepTimeinSec, workTimeinSec, 
     }
 
     if (whichInterval == "work" && time > workTime) {
-      document.title = `Rest: 00:00`;
-      changeFavicon(favicon, restColor.value);
       workToRestMode();
     }
     if (whichInterval == "rest" && time > restTime) {
-      document.title = `Work: 00:00`;
-      changeFavicon(favicon, workColor.value);
       restToWorkMode();
     }
 
@@ -577,6 +565,10 @@ document.addEventListener("keyup", function (event) {
 
 let nextBtnClicked = false;
 function nextIntervalMode() {
+  intervalId.stop();
+  intervalId = new Timer(1000, () => {
+    updateTime(workDisplay, restDisplay, prepDisplay, prepTimeinSec, workTimeinSec, restTimeinSec);
+  });
   nextBtnClicked = true;
   if (!paused) {
     if (currentRound <= rounds.value) {
@@ -611,6 +603,8 @@ function prepareToWorkMode() {
   progressBar.max = workTimeinSec;
   progressBar.value = sec;
   progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
+  document.title = `Work: 00:00`;
+  changeFavicon(favicon, workColor.value);
 }
 function workToRestMode() {
   whichInterval = "rest";
@@ -636,6 +630,8 @@ function workToRestMode() {
       timeDisplay.textContent = "End!";
     }
   }
+  document.title = `Rest: 00:00`;
+  changeFavicon(favicon, restColor.value);
 }
 
 function restToWorkMode() {
@@ -670,6 +666,8 @@ function restToWorkMode() {
   } else {
     progressBar.value = sec;
   }
+  document.title = `Work: 00:00`;
+  changeFavicon(favicon, workColor.value);
 }
 
 function pad(time) {
@@ -747,3 +745,6 @@ function resetWhenToggled() {
     }
   }
 }
+window.addEventListener("beforeunload", function () {
+  changeFavicon(favicon, "#00AAFF");
+});
