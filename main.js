@@ -565,13 +565,13 @@ document.addEventListener("keyup", function (event) {
 
 let nextBtnClicked = false;
 async function nextIntervalMode() {
-  await intervalId.stop();
-  intervalId = new Timer(1000, () => {
-    updateTime(workDisplay, restDisplay, prepDisplay, prepTimeinSec, workTimeinSec, restTimeinSec);
-  });
-  nextBtnClicked = true;
-
   if (!paused) {
+    await intervalId.stop();
+    intervalId = new Timer(1000, () => {
+      updateTime(workDisplay, restDisplay, prepDisplay, prepTimeinSec, workTimeinSec, restTimeinSec);
+    });
+    nextBtnClicked = true;
+
     if (currentRound <= rounds.value) {
       if (whichInterval === "work") {
         counter = convertHour_Min_Sec_toSec(workTimeUsed) * currentRound + convertHour_Min_Sec_toSec(restTimeUsed) * (currentRound - 1);
@@ -747,16 +747,13 @@ function resetTimer() {
   // restColor.value;
 }
 function resetWhenToggled() {
-  if (isToggled) {
-    document.body.style.backgroundColor = "black";
-    if (sidebar.children.length > 0) {
-      if (workoutSavedContainer) {
-        workoutSavedContainer.forEach((workout) => {
-          workout.style.border = "2px solid var(--title-color)";
-        });
-      }
-    }
-  }
+  if (!isToggled) return;
+  document.body.style.backgroundColor = "black";
+
+  if (!sidebar.children.length || !workoutSavedContainer) return;
+  workoutSavedContainer.forEach((workout) => {
+    workout.style.border = "2px solid var(--title-color)";
+  });
 }
 window.addEventListener("beforeunload", function () {
   changeFavicon(favicon, "#00AAFF");
