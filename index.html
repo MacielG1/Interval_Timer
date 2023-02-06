@@ -11,10 +11,20 @@
     <link rel="shortcut icon" type="image/x-icon" href="timer.svg" />
 
     <link rel="stylesheet" href="style.css" />
-    <script src="main.js" defer></script>
-
     <title>Timer</title>
+    <script src="main.js" defer></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QW85SQHYJK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-QW85SQHYJK");
+    </script>
   </head>
+
   <body>
     <div class="settings">
       <div class="gear-button-container">
@@ -51,7 +61,7 @@
         <div class="display">
           <h1 class="timer">00:00</h1>
           <div class="cornerDisplay">
-            <p class="roundsDisplay">0/0</p>
+            <p class="roundsDisplay">0/10</p>
             <p class="totalTimeDisplay">00:00/00:00</p>
           </div>
         </div>
@@ -107,10 +117,10 @@
             <input type="text" class="workoutName" id="workout-name" maxlength="15" placeholder="Workout Name" />
             <button class="saveWorkoutBtn">Save</button>
           </div>
+          <div class="resetDiv">
+            <button class="reset" type="reset">Reset</button>
+          </div>
         </form>
-        <div class="resetDiv">
-          <button class="reset" type="reset">Reset</button>
-        </div>
       </section>
     </main>
   </body>

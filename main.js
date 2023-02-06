@@ -735,6 +735,16 @@ function resetTimer() {
   progressBar.value = 0;
   totalTimeDisplay.textContent = "00:00/00:00";
   counter = 0;
+  // rounds.value = 10;
+  // prepareMin.value = "00";
+  // prepareSec.value = "05";
+  // workMin.value = "00";
+  // workSec.value = "30";
+  // workColor.value
+  // // rest inputs
+  // restMin.value = "00";
+  // restSec.value = "30";
+  // restColor.value;
 }
 function resetWhenToggled() {
   if (isToggled) {

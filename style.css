@@ -132,7 +132,6 @@ main {
   font-size: 5vw !important;
 }
 .cornerDisplay {
-  width: 6.5em;
   margin-top: 0.3em;
   padding-top: 0.25em;
   padding-right: 0.25em;
@@ -149,8 +148,12 @@ main {
   gap: 0em;
 }
 .roundsDisplay {
+  margin: 0 auto;
   font-size: 3.3rem;
   line-height: 0.9;
+}
+.totalTimeDisplay {
+  margin: 0 auto;
 }
 
 .options {
@@ -877,13 +880,12 @@ aside .sidebar {
   }
 
   .cornerDisplay {
-    padding: 0.5em 0.5em 0 0;
-    margin-right: 3em;
+    padding: 0.5em 0.3em 0 0;
+    margin-right: 1.7em;
     font-size: 3.5vw;
     font-size: 0.7rem;
   }
   .roundsDisplay {
-    padding-left: 0.38em;
     font-size: 2.5rem;
   }
   .totalTimeDisplay {
