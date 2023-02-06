@@ -564,22 +564,25 @@ document.addEventListener("keyup", function (event) {
 });
 
 let nextBtnClicked = false;
-function nextIntervalMode() {
-  intervalId.stop();
+async function nextIntervalMode() {
+  await intervalId.stop();
   intervalId = new Timer(1000, () => {
     updateTime(workDisplay, restDisplay, prepDisplay, prepTimeinSec, workTimeinSec, restTimeinSec);
   });
   nextBtnClicked = true;
+
   if (!paused) {
     if (currentRound <= rounds.value) {
       if (whichInterval === "work") {
         counter = convertHour_Min_Sec_toSec(workTimeUsed) * currentRound + convertHour_Min_Sec_toSec(restTimeUsed) * (currentRound - 1);
-
+        totalTimeDisplay.textContent = `${convertSecondsToMinAndSec(counter)}/${totalWorkoutTime}`;
         workToRestMode();
       } else if (whichInterval === "rest") {
         counter = convertHour_Min_Sec_toSec(restTimeUsed) * currentRound + convertHour_Min_Sec_toSec(workTimeUsed) * currentRound;
         restToWorkMode();
+        totalTimeDisplay.textContent = `${convertSecondsToMinAndSec(counter)}/${totalWorkoutTime}`;
       } else if (whichInterval === "prepare") {
+        timeDisplay.textContent = `00:00`;
         prepareToWorkMode();
       }
     } else {
