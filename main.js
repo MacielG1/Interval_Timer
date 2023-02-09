@@ -625,16 +625,15 @@ function workToRestMode() {
   progressBar.max = restTimeinSec;
   progressBar.value = sec;
   progressBar.style.setProperty("--progressBar-color", `${restColor.value}`);
+  document.title = `Rest: 00:00`;
+  changeFavicon(favicon, restColor.value);
   if (currentRound + 1 > rounds.value) {
     if (skipLastRest) {
       resetTimer();
       resetWhenToggled();
-
       timeDisplay.textContent = "End!";
     }
   }
-  document.title = `Rest: 00:00`;
-  changeFavicon(favicon, restColor.value);
 }
 
 function restToWorkMode() {
@@ -655,6 +654,8 @@ function restToWorkMode() {
   progressBar.style.setProperty("--progressBar-color", `${workColor.value}`);
 
   if (currentRound > rounds.value) {
+    document.title = "Timer";
+    changeFavicon(favicon, "#00AAFF");
     progressBar.value = 0;
     container.style.borderColor = "rgb(216, 216, 216)";
     roundsDisplay.textContent = `0/0`;
@@ -716,7 +717,7 @@ function resetTimer() {
     intervalId.stop();
     paused = true;
   }
-  changeFavicon(favicon, `#124197`);
+  changeFavicon(favicon, `#00AAFF`);
   document.title = `Timer`;
   document.body.style.backgroundColor = "black";
   sec = "0" + 0;
@@ -735,6 +736,7 @@ function resetTimer() {
   progressBar.value = 0;
   totalTimeDisplay.textContent = "00:00/00:00";
   counter = 0;
+
   // rounds.value = 10;
   // prepareMin.value = "00";
   // prepareSec.value = "05";
