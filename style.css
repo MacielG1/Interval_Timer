@@ -84,6 +84,7 @@ select {
 main {
   display: flex;
 }
+
 .container {
   background-color: black;
   width: 40%;
@@ -171,6 +172,7 @@ main {
   font-size: 1.4rem;
   text-align: center;
   vertical-align: middle;
+
   margin-right: 0.5em;
 }
 .options input[type="number"] {
