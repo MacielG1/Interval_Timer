@@ -67,10 +67,12 @@ if (autoPlaysOnRestart) {
 let WorkoutsSaved = JSON.parse(localStorage.getItem("workouts"));
 
 document.querySelector("main").classList.add("main-noWorkouts");
+
 if (WorkoutsSaved && WorkoutsSaved.length) {
   loadHTML();
+} else {
+  sidebar.style = "display: none";
 }
-
 function loadHTML() {
   document.querySelector("main").classList.add("main-hasWorkouts");
   WorkoutsSaved.forEach((workout, index) => {
@@ -96,6 +98,7 @@ function loadHTML() {
     sidebar.insertAdjacentHTML("beforeend", html);
   });
   workoutSavedContainer = document.querySelectorAll(".workout");
+  sidebar.style = "display: flex";
 }
 
 // deleteBtn Listener
@@ -116,6 +119,9 @@ sidebar.addEventListener("click", (e) => {
     workoutSavedContainer.forEach((workout, i) => {
       workout.dataset.index = i;
     });
+    if (!workoutSavedContainer.length) {
+      sidebar.style = "display: none";
+    }
   } else if (e.target.matches(".loadBtn")) {
     let index = event.target.parentElement.parentElement.dataset.index;
     let workout = WorkoutsSaved[index];
@@ -760,3 +766,49 @@ function resetWhenToggled() {
 window.addEventListener("beforeunload", function () {
   changeFavicon(favicon, "#00AAFF");
 });
+
+// const bodyElement = document.body;
+// const videoElement = document.createElement("video");
+// const canvasElement = document.createElement("canvas");
+// const context = canvasElement.getContext("2d");
+// const buttonElement = document.querySelector(".pip");
+
+// const containerElement = document.querySelector(".container");
+// const { width: containerWidth, height: containerHeight } = containerElement.getBoundingClientRect();
+
+// // Calculate the aspect ratio of the container element
+// const containerAspectRatio = containerWidth / containerHeight;
+
+// // Calculate the target dimensions of the canvas element based on the aspect ratio of the container element
+// let targetWidth = Math.min(containerWidth, window.innerWidth);
+// let targetHeight = Math.floor(targetWidth / containerAspectRatio);
+
+// // If the target height is greater than the available window height, adjust the dimensions to fit within the window
+// if (targetHeight > window.innerHeight) {
+//   targetHeight = Math.min(containerHeight, window.innerHeight);
+//   targetWidth = Math.floor(targetHeight * containerAspectRatio);
+// }
+
+// canvasElement.width = targetWidth;
+// canvasElement.height = targetHeight;
+
+// // Add a click event listener to the button
+// buttonElement.addEventListener("click", () => {
+//   console.log("Enter Picture-in-Picture mode clicked");
+
+//   // Use html2canvas to capture the contents of the container element
+//   html2canvas(containerElement).then((canvas) => {
+//     console.log("html2canvas captured container element");
+//     console.log(canvas);
+
+//     // Draw the canvas contents onto the main canvas
+//     context.drawImage(canvas, 0, 0, targetWidth, targetHeight);
+
+//     videoElement.srcObject = canvasElement.captureStream();
+//     videoElement.addEventListener("loadedmetadata", () => {
+//       console.log("starting PIP mode");
+//       videoElement.play();
+//       videoElement.requestPictureInPicture();
+//     });
+//   });
+// });

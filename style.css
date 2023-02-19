@@ -477,13 +477,36 @@ aside .sidebar {
   margin-top: 3em;
   padding-left: 2.5em;
   position: absolute;
-  width: 14.5vw;
+
   display: flex;
   flex-direction: column;
   gap: 0.8em;
-  justify-content: center;
+
+  height: 90%;
+
+  padding: 1em;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-left: 1.8em;
 }
 
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #969696;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #b1b1b1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
 .deleteBtn {
   margin: auto;
   float: right;
