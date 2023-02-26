@@ -484,7 +484,7 @@ aside .sidebar {
 
   height: 90%;
 
-  padding: 1em;
+  padding: 0 1em 1em 1em;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -963,6 +963,9 @@ aside .sidebar {
   }
   progress {
     height: 1.8em;
+  }
+  .workoutName {
+    font-size: 0.8rem;
   }
 }
 
